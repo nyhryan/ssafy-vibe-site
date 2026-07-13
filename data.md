@@ -1,0 +1,48 @@
+- 영화
+    - Ocean's Eleven(2001)
+        - url: https://www.imdb.com/title/tt0240772/?ref_=ext_shr_lnk
+        - poster image: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/oceans%20eleven.jpg?raw=true
+    - GoodFellas(1990)
+        - url: https://www.imdb.com/title/tt0099685/?ref_=ext_shr_lnk
+        - poster image: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/goodfellas.jpg?raw=true
+    - The Italian Job
+        - url: https://www.imdb.com/title/tt0317740/?ref_=ext_shr_lnk
+        - poster image: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/italian%20job.jpg?raw=true
+- 음악(title, artist, YouTube URL)
+    - J-POP
+        - カブトムシ - aiko: https://youtu.be/wp2U40KI63A?si=7W-7zb404KnamUvQ
+        - 魔弾～Der Freischütz～ - T.M.Revolution: https://youtu.be/DgQtZGzutj4?si=0EWDwDpsigQF9nKL
+        - 粉雪 - レミオロメン: https://youtu.be/1wxTksLZ1Mw?si=jTIBAPzQw1HK-Xsc
+    - UK Hardcore/Hardcore Rave(title, artist)
+        - Satellite(Update) - Darren Styles: https://www.youtube.com/watch?v=ul8VNYm5JJE
+        - Let You Go - DJ Noriken: https://www.youtube.com/watch?v=37mnapxG30s
+- 애니메이션
+    - Chainsmoker Cat(ヤニねこ): https://www.youtube.com/watch?v=KYGgyQtSAdI
+    - Lucky star(らき☆すた): https://www.youtube.com/watch?v=6iseNlvH2_s
+- 여행지
+    - 아마노하시다테, 교토: https://maps.app.goo.gl/zLFZjgpPKVng1z3s6
+        - photo: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/hashidate.jpg?raw=true
+    - 키노사키 온천, 효고: https://maps.app.goo.gl/TzjgnTUghJ7kD6ck9
+        - photo: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/kinosaki.jpg?raw=true
+    - 미라이신노오카(고산지), 히로시마: https://maps.app.goo.gl/fc1wJGJyFLyjDC2w8
+        - photo: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/gosanji.jpg?raw=true
+    - 만박기념공원, 오사카: https://maps.app.goo.gl/cvJTkZoGb3PoNDMg7
+        - photo: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/expo.jpg?raw=true
+- 게임
+    - 오버워치
+        - url: https://overwatch.blizzard.com/ko-kr/
+        - image: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/ow.jpg?raw=true
+    - 에이펙스 레전드
+        - url: https://store.steampowered.com/app/1172470/Apex_Legends/?l=english&curator_clanid=36376191&gad_source=1&gad_campaignid=23519587648&gbraid=0AAAAAqD7is1AyMwMxLNSdLey1jw6Lpcqk&gclid=CjwKCAjw9szSBhBNEiwAC57Sq5hWJEx8eLdEtIH1d6K6n-n89ylh2-_gNgrbYY1d7OaDS2dHf4kNfxoC16QQAvD_BwE
+        - image: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/apex.jpg?raw=true
+    - 엘든링 밤의 통치자
+        - url: https://store.steampowered.com/app/2622380/ELDEN_RING_NIGHTREIGN/?gad_source=1&gad_campaignid=23519587648&gbraid=0AAAAAqD7is1AyMwMxLNSdLey1jw6Lpcqk&gclid=CjwKCAjw9szSBhBNEiwAC57Sq302gJ52bW4C77JJj-ngB-BgzxYM5S6TBhOzw8fRstatEczP5nClTRoCUjkQAvD_BwE
+        - image: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/nightreign.jpg?raw=true
+    - 엘든링
+        - url: https://store.steampowered.com/app/1245620/ELDEN_RING/?curator_clanid=41002356&gad_source=1&gad_campaignid=23519587648&gbraid=0AAAAAqD7is1AyMwMxLNSdLey1jw6Lpcqk&gclid=CjwKCAjw9szSBhBNEiwAC57Sq3DF8Mu4d6ZW9o2BlYzm2Nvzk3PBgMxFWGiwW45pUJQMyIY5mAXokBoCwMIQAvD_BwE
+        - image: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/er.jpg?raw=true
+    - pop'n music
+        - image: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/popn.png?raw=true
+    - beatmania IIDX
+       - image: https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/iidx.jpg?raw=true
+

@@ -3,1809 +3,400 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>System.Portfolio // Multi-Paradigm Explorer</title>
-  
-  <!-- Typography & Icons -->
+  <title>I AM - Home</title>
+
+  <!-- Google Font: Gaegu (귀여운 손글씨 서체) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap" rel="stylesheet"> -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 기존 프로젝트의 사용자 정의 테마 설정을 위해 사용되던 색상 메타 추가 (필요시 tailwind.config에 반영) -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Gaegu', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+    <!-- Lucide Icons (풍부하고 귀여운 아이콘용) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* ==========================================================================
-       0. CSS CUSTOM PROPERTIES & TOKENS
-       ========================================================================== */
+    /* 제안서 지정 서체 강제 적용 */
+    body, button, input, textarea, select {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    /* 제안서 지정 파스텔 팔레트 테마 변수 등록 */
     :root {
-      --color-bg: #060a0b;
-      --color-text: #eff2f3;
-      --color-text-dim: #99aab0;
-      --color-primary: #9ccdde;
-      --color-secondary: #1b6984;
-      --color-accent: #1eb5ea;
-      --color-accent-glow: rgba(30, 181, 234, 0.25);
-      --color-card-bg: rgba(27, 105, 132, 0.1);
-      --color-card-border: rgba(156, 205, 222, 0.2);
-      
-      --font-display: 'JetBrains Mono', 'Fira Code', monospace;
-      --font-body: 'Noto Sans KR', 'Pretendard', system-ui, -apple-system, sans-serif;
-      
-      --transition-fast: 0.15s ease;
-      --transition-normal: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      --max-readable-width: 75ch; /* ~80 character rule */
+      --baby-pink: #FF9BC6;
+      --soft-blossom: #FFBCD6;
+      --lavender-veil: #FFE5F9;
+      --periwinkle: #B7B6FF;
+      --icy-blue: #AFDEFF;
+      --dark-slate: #2E2528;
     }
 
-    /* ==========================================================================
-       1. GLOBAL RESET & BASE STYLES
-       ========================================================================== */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    /* 커스텀 테마 유틸리티 */
+    .bg-baby-pink { background-color: var(--baby-pink); }
+    .bg-soft-blossom { background-color: var(--soft-blossom); }
+    .bg-lavender-veil { background-color: var(--lavender-veil); }
+    .bg-periwinkle { background-color: var(--periwinkle); }
+    .bg-icy-blue { background-color: var(--icy-blue); }
+    .text-dark-slate { color: var(--dark-slate); }
+    .border-dark-slate { border-color: var(--dark-slate); }
+
+    /* 서브컬처 느낌의 볼드하고 귀여운 레트로 테두리 스타일 */
+    .retro-border {
+      border: 4px solid var(--dark-slate);
+      box-shadow: 4px 4px 0px 0px var(--dark-slate);
+      transition: all 0.2s ease-in-out;
+    }
+    .retro-border:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px 0px var(--dark-slate);
+    }
+    .retro-border:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px 0px var(--dark-slate);
     }
 
-    body {
-      background-color: var(--color-bg);
-      color: var(--color-text);
-      font-family: var(--font-body);
-      line-height: 1.6;
-      overflow-x: hidden;
-      transition: background-color var(--transition-normal);
+    /* 정적 요소용 보더 (클릭 모션 없음) */
+    .retro-card {
+      border: 4px solid var(--dark-slate);
+      box-shadow: 5px 5px 0px 0px var(--dark-slate);
     }
 
-    /* Selection Colors */
-    ::selection {
-      background-color: var(--color-accent);
-      color: var(--color-bg);
-    }
-
-    /* Scrollbars */
+    /* 스크롤바 커스텀 */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 10px;
     }
     ::-webkit-scrollbar-track {
-      background: var(--color-bg);
+      background: var(--lavender-veil);
     }
     ::-webkit-scrollbar-thumb {
-      background: var(--color-secondary);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--color-accent);
-    }
-
-    /* Heading Resets */
-    h1, h2, h3, h4, h5, h6 {
-      font-family: var(--font-display);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* ==========================================================================
-       2. TYPOGRAPHY & UTILITIES
-       ========================================================================== */
-    .readable-text {
-      max-width: var(--max-readable-width);
-      word-break: keep-all; /* Clean line breaks for Korean segments */
-      overflow-wrap: break-word; /* Safe wraps for English */
-    }
-
-    .neon-text-glow {
-      text-shadow: 0 0 8px var(--color-accent-glow), 0 0 20px rgba(30, 181, 234, 0.15);
-    }
-
-    .cyber-grid-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-image: 
-        linear-gradient(rgba(156, 205, 222, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(156, 205, 222, 0.015) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: -2;
-      pointer-events: none;
-    }
-
-    /* ==========================================================================
-       3. NAVIGATION BAR
-       ========================================================================== */
-    .header {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      background: rgba(6, 10, 11, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--color-card-border);
-      z-index: 100;
-    }
-
-    .header__container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .header__logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-display);
-      font-weight: 800;
-      color: var(--color-primary);
-      cursor: pointer;
-    }
-
-    .header__logo-cursor {
-      display: inline-block;
-      width: 8px;
-      height: 15px;
-      background: var(--color-accent);
-      animation: blink 1s infinite steps(2);
-    }
-
-    .header__controls {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .header__btn {
-      background: none;
-      border: 1px solid var(--color-card-border);
-      color: var(--color-text);
-      padding: 0.5rem 0.75rem;
-      border-radius: 4px;
-      font-family: var(--font-display);
-      font-size: 0.8rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all var(--transition-fast);
-    }
-
-    .header__btn:hover {
-      border-color: var(--color-accent);
-      color: var(--color-accent);
-      box-shadow: 0 0 10px var(--color-accent-glow);
-    }
-
-    /* ==========================================================================
-       4. HERO SECTION
-       ========================================================================== */
-    .hero {
-      min-height: calc(85vh - 70px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 4rem 2rem;
-      overflow: hidden;
-    }
-
-    .hero__canvas-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.35;
-    }
-
-    .hero__content {
-      max-width: 800px;
-      text-align: center;
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .hero__badge {
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-accent);
-      color: var(--color-accent);
-      padding: 0.35rem 1rem;
-      border-radius: 100px;
-      font-family: var(--font-display);
-      font-size: 0.8rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    .hero__title {
-      font-size: 3.5rem;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      color: var(--color-text);
-      word-break: keep-all;
-    }
-
-    .hero__title span {
-      color: var(--color-accent);
-      position: relative;
-    }
-
-    .hero__catchphrase {
-      font-size: 1.25rem;
-      color: var(--color-primary);
-      margin-bottom: 2rem;
-      font-family: var(--font-body);
-      border-left: 3px solid var(--color-accent);
-      padding-left: 1rem;
-      text-align: left;
-    }
-
-    .hero__bio {
-      font-size: 1.05rem;
-      color: var(--color-text-dim);
-      margin-bottom: 2.5rem;
-      text-align: center;
-    }
-
-    .hero__actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.8rem 1.8rem;
-      border-radius: 6px;
-      font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all var(--transition-normal);
-      border: none;
-    }
-
-    .btn--primary {
-      background: var(--color-accent);
-      color: var(--color-bg);
-      box-shadow: 0 4px 15px rgba(30, 181, 234, 0.4);
-    }
-
-    .btn--primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(30, 181, 234, 0.6);
-      background: var(--color-primary);
-    }
-
-    .btn--secondary {
-      background: transparent;
-      border: 1px solid var(--color-card-border);
-      color: var(--color-text);
-    }
-
-    .btn--secondary:hover {
-      border-color: var(--color-accent);
-      background: rgba(30, 181, 234, 0.05);
-      color: var(--color-accent);
-    }
-
-    /* ==========================================================================
-       5. TECHNICAL STACK SECTION
-       ========================================================================== */
-    .section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 6rem 2rem;
-    }
-
-    .section__header {
-      margin-bottom: 3.5rem;
-      border-bottom: 1px solid var(--color-card-border);
-      padding-bottom: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-
-    .section__title {
-      font-size: 2.2rem;
-      color: var(--color-text);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .section__title span {
-      color: var(--color-accent);
-    }
-
-    .section__subtitle {
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      color: var(--color-text-dim);
-    }
-
-    .tech {
-      background: rgba(27, 105, 132, 0.02);
-      border-radius: 12px;
-      border: 1px solid var(--color-card-border);
-      padding: 3rem 2rem;
-    }
-
-    .tech__grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .tech__card {
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-card-border);
-      border-radius: 8px;
-      padding: 1.75rem;
-      transition: all var(--transition-normal);
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tech__card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: var(--color-secondary);
-      transition: all var(--transition-normal);
-    }
-
-    .tech__card:hover {
-      transform: translateY(-4px);
-      border-color: var(--color-accent);
-      box-shadow: 0 10px 20px rgba(30, 181, 234, 0.08);
-    }
-
-    .tech__card:hover::before {
-      background: var(--color-accent);
-    }
-
-    .tech__card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-
-    .tech__card-icon {
-      font-size: 1.5rem;
-      color: var(--color-primary);
-    }
-
-    .tech__card-name {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      color: var(--color-text);
-    }
-
-    .tech__progress {
-      width: 100%;
-      height: 6px;
-      background: rgba(156, 205, 222, 0.1);
-      border-radius: 10px;
-      margin-bottom: 1rem;
-      overflow: hidden;
-    }
-
-    .tech__progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
-      border-radius: 10px;
-      transition: width 1s cubic-bezier(0.1, 1, 0.1, 1);
-    }
-
-    .tech__card-desc {
-      font-size: 0.9rem;
-      color: var(--color-text-dim);
-    }
-
-    /* Wizard Level Card Specific */
-    .tech__card--wizard {
-      grid-column: 1 / -1;
-      background: linear-gradient(135deg, rgba(27, 105, 132, 0.15) 0%, rgba(30, 181, 234, 0.05) 100%);
-      border: 1px solid var(--color-accent);
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .tech__wizard-icon {
-      font-size: 3rem;
-      color: var(--color-accent);
-      animation: float 3s infinite ease-in-out;
-    }
-
-    .tech__wizard-content {
-      flex: 1;
-    }
-
-    @media (max-width: 768px) {
-      .tech__card--wizard {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-    }
-
-    /* ==========================================================================
-       6. RHYTHM & MUSIC SECTION (BEMANI / J-POP)
-       ========================================================================== */
-    .rhythm__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 4rem;
-    }
-
-    @media (max-width: 768px) {
-      .rhythm__grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .arcade-card {
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-card-border);
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: all var(--transition-normal);
-    }
-
-    .arcade-card:hover {
-      border-color: var(--color-accent);
-      box-shadow: 0 10px 25px rgba(30, 181, 234, 0.12);
-    }
-
-    .arcade-card__image-container {
-      position: relative;
-      height: 240px;
-      overflow: hidden;
-      background: #000;
-    }
-
-    .arcade-card__image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.8;
-      transition: transform 0.5s ease;
-    }
-
-    .arcade-card:hover .arcade-card__image {
-      transform: scale(1.05);
-      opacity: 1;
-    }
-
-    .arcade-card__badge {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--color-bg);
-      border: 1px solid var(--color-accent);
-      color: var(--color-accent);
-      padding: 0.25rem 0.75rem;
-      border-radius: 4px;
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-    }
-
-    .arcade-card__content {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .arcade-card__title {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--color-primary);
-    }
-
-    .arcade-card__desc {
-      font-size: 0.95rem;
-      color: var(--color-text-dim);
-      margin-bottom: 1.5rem;
-    }
-
-    /* J-POP Music Section */
-    .music-player__title {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      color: var(--color-text);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .music-player__grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .music-card {
-      background: rgba(6, 10, 11, 0.6);
-      border: 1px solid var(--color-card-border);
-      border-radius: 8px;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: all var(--transition-fast);
-    }
-
-    .music-card:hover {
-      border-color: var(--color-accent);
-      background: rgba(27, 105, 132, 0.05);
-    }
-
-    .music-card__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .music-card__track-info {
-      flex: 1;
-    }
-
-    .music-card__title {
-      font-size: 1.1rem;
-      color: var(--color-text);
-      font-weight: 700;
-    }
-
-    .music-card__artist {
-      font-family: var(--font-display);
-      font-size: 0.85rem;
-      color: var(--color-accent);
-    }
-
-    .music-card__badge {
-      font-size: 0.75rem;
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-card-border);
-      padding: 0.15rem 0.5rem;
-      border-radius: 4px;
-      font-family: var(--font-display);
-    }
-
-    .music-card__video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-      height: 0;
-      overflow: hidden;
-      border-radius: 6px;
-      border: 1px solid rgba(156, 205, 222, 0.1);
-    }
-
-    .music-card__video-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* ==========================================================================
-       6.5 VIDEO GAMES SECTION
-       ========================================================================== */
-    .games__categories {
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-    }
-
-    .games__category-group {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .games__category-title {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      color: var(--color-primary);
-      border-left: 4px solid var(--color-accent);
-      padding-left: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .games__grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .game-card {
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-card-border);
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: all var(--transition-normal);
-      position: relative;
-    }
-
-    .game-card:hover {
-      border-color: var(--color-accent);
-      box-shadow: 0 10px 20px var(--color-accent-glow);
-      transform: translateY(-4px);
-    }
-
-    .game-card__image-container {
-      position: relative;
-      height: 180px;
-      overflow: hidden;
-      background: #000;
-    }
-
-    .game-card__image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.85;
-      transition: transform 0.5s ease;
-    }
-
-    .game-card:hover .game-card__image {
-      transform: scale(1.08);
-      opacity: 1;
-    }
-
-    .game-card__badge {
-      position: absolute;
-      top: 0.75rem;
-      left: 0.75rem;
-      background: rgba(6, 10, 11, 0.9);
-      border: 1px solid var(--color-accent);
-      color: var(--color-accent);
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-family: var(--font-display);
-      font-size: 0.7rem;
-      font-weight: bold;
-    }
-
-    .game-card__content {
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .game-card__title {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-      color: var(--color-primary);
-    }
-
-    .game-card__desc {
-      font-size: 0.85rem;
-      color: var(--color-text-dim);
-      line-height: 1.5;
-    }
-
-    /* ==========================================================================
-       7. MOVIES & ANIME SECTION (CRIME/HEIST & SLICE-OF-LIFE)
-       ========================================================================== */
-    .movies__grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 4rem;
-    }
-
-    .movie-card {
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-card-border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 200px;
-      transition: all var(--transition-normal);
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .movie-card:hover {
-      border-color: var(--color-accent);
-      transform: scale(1.02);
-      box-shadow: 0 8px 20px var(--color-accent-glow);
-    }
-
-    .movie-card__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-    }
-
-    .movie-card__genre {
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      color: var(--color-accent);
-      border: 1px solid var(--color-accent);
-      padding: 0.15rem 0.5rem;
-      border-radius: 4px;
-    }
-
-    .movie-card__title {
-      font-size: 1.35rem;
-      color: var(--color-text);
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-    }
-
-    .movie-card__desc {
-      font-size: 0.9rem;
-      color: var(--color-text-dim);
-      margin-bottom: 1rem;
-    }
-
-    .movie-card__imdb-link {
-      align-self: flex-start;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-display);
-      font-size: 0.8rem;
-      color: var(--color-primary);
-      transition: color var(--transition-fast);
-    }
-
-    .movie-card:hover .movie-card__imdb-link {
-      color: var(--color-accent);
-    }
-
-    /* Anime Sub-grid */
-    .anime__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    @media (max-width: 768px) {
-      .anime__grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .anime-card {
-      background: var(--color-card-bg);
-      border: 1px solid var(--color-card-border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: all var(--transition-normal);
-    }
-
-    .anime-card:hover {
-      border-color: var(--color-accent);
-    }
-
-    .anime-card__info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .anime-card__title {
-      font-size: 1.2rem;
-      color: var(--color-primary);
-    }
-
-    .anime-card__genre {
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      background: rgba(30, 181, 234, 0.1);
-      color: var(--color-accent);
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-    }
-
-    /* ==========================================================================
-       8. DEV TERMINAL / CONSOLE SYSTEM & FOOTER
-       ========================================================================== */
-    .footer {
-      border-top: 1px solid var(--color-card-border);
-      background: #030607;
-      padding: 4rem 2rem;
-    }
-
-    .footer__container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .terminal {
-      background: #020405;
-      border: 1px solid var(--color-card-border);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 3rem;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-    }
-
-    .terminal__header {
-      background: rgba(27, 105, 132, 0.15);
-      border-bottom: 1px solid var(--color-card-border);
-      padding: 0.75rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .terminal__dots {
-      display: flex;
-      gap: 0.4rem;
-    }
-
-    .terminal__dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-    }
-
-    .terminal__dot--red { background: #ff5f56; }
-    .terminal__dot--yellow { background: #ffbd2e; }
-    .terminal__dot--green { background: #27c93f; }
-
-    .terminal__title {
-      font-family: var(--font-display);
-      font-size: 0.8rem;
-      color: var(--color-primary);
-    }
-
-    .terminal__body {
-      padding: 1.5rem;
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      color: var(--color-text);
-      min-height: 250px;
-      max-height: 400px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-
-    .terminal__form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      width: 100%;
-    }
-
-    .terminal__form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    @media (min-width: 768px) {
-      .terminal__form-group {
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
-      }
-    }
-
-    .terminal__form-label {
-      color: var(--color-accent);
-      font-weight: 600;
-      white-space: nowrap;
-      min-width: 200px;
-    }
-
-    .terminal__form-input {
-      background: transparent;
-      border: none;
-      border-bottom: 1px dashed var(--color-card-border);
-      color: var(--color-text);
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      outline: none;
-      padding: 0.25rem 0.5rem;
-      flex: 1;
-      transition: border-color var(--transition-fast);
-    }
-
-    .terminal__form-input:focus {
-      border-bottom-color: var(--color-accent);
-      background: rgba(30, 181, 234, 0.02);
-    }
-
-    .terminal__form-textarea {
-      background: transparent;
-      border: 1px dashed var(--color-card-border);
-      color: var(--color-text);
-      font-family: var(--font-display);
-      font-size: 0.9rem;
-      outline: none;
-      padding: 0.5rem;
-      flex: 1;
-      height: 80px;
-      resize: none;
-      transition: border-color var(--transition-fast);
-    }
-
-    .terminal__form-textarea:focus {
-      border-color: var(--color-accent);
-      background: rgba(30, 181, 234, 0.02);
-    }
-
-    .terminal__form-submit {
-      align-self: flex-start;
-      background: rgba(30, 181, 234, 0.1);
-      border: 1px solid var(--color-accent);
-      color: var(--color-accent);
-      font-family: var(--font-display);
-      font-size: 0.85rem;
-      font-weight: bold;
-      padding: 0.6rem 1.5rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all var(--transition-normal);
-    }
-
-    .terminal__form-submit:hover {
-      background: var(--color-accent);
-      color: var(--color-bg);
-      box-shadow: 0 0 15px var(--color-accent-glow);
-    }
-
-    .terminal__log-output {
-      font-family: var(--font-display);
-      color: var(--color-primary);
-      white-space: pre-wrap;
-      line-height: 1.5;
-    }
-
-    .footer__bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-
-    .footer__copyright {
-      font-family: var(--font-display);
-      font-size: 0.85rem;
-      color: var(--color-text-dim);
-    }
-
-    .footer__socials {
-      display: flex;
-      gap: 1.25rem;
-    }
-
-    .footer__social-link {
-      font-size: 1.2rem;
-      color: var(--color-text-dim);
-      transition: color var(--transition-fast);
-    }
-
-    .footer__social-link:hover {
-      color: var(--color-accent);
-    }
-
-    /* ==========================================================================
-       9. ANIMATIONS
-       ========================================================================== */
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.8; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.02); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    /* Mobile adjustments */
-    @media (max-width: 480px) {
-      .hero__title {
-        font-size: 2.2rem;
-      }
-      .section__title {
-        font-size: 1.8rem;
-      }
-      .btn {
-        width: 100%;
-        justify-content: center;
-      }
+      background: var(--periwinkle);
+      border-radius: 9999px;
+      border: 2px solid var(--dark-slate);
     }
   </style>
 </head>
-<body>
+<body class="bg-[#FFFDFE] font-sans text-slate-800 min-h-screen flex flex-col selection:bg-[#FF9BC6] selection:text-white">
 
-  <!-- Background overlay grid lines -->
-  <div class="cyber-grid-overlay"></div>
+  <!-- 헤더 & 네비게이션 바 -->
+  <header class="sticky top-0 z-50 px-4 py-3 bg-[#FFFDFE]/90 backdrop-blur-md border-b-4 border-slate-800">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+      <!-- 로고 영역 -->
+      <a href="/index.html" class="flex items-center gap-2 group">
+        <span class="text-2xl font-bold tracking-wider text-dark-slate group-hover:text-[#FF9BC6] transition-colors">
+          I AM
+        </span>
+      </a>
 
-  <!-- HEADER / NAVIGATION -->
-  <header class="header">
-    <div class="header__container">
-      <div class="header__logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        <span>SYS.PORTFOLIO</span>
-        <span class="header__logo-cursor"></span>
-      </div>
-      <div class="header__controls">
-        <!-- Sound Effect Toggle -->
-        <button class="header__btn" id="sound-toggle-btn" aria-label="Toggle arcade synthesizer sounds">
-          <i id="sound-icon" class="fa-solid fa-volume-high"></i>
-          <span>효과음 켬</span>
-        </button>
-      </div>
+      <!-- 둥근 형태의 귀여운 탭 메뉴 -->
+      <nav class="flex items-center gap-2 bg-lavender-veil p-1.5 rounded-full border-2 border-slate-800">
+        <a href="/index.html" id="nav-home" 
+          class="px-4 py-1.5 rounded-full text-lg font-bold transition-all duration-300 bg-baby-pink text-white border-2 border-slate-800 shadow-[2px_2px_0px_0px_rgba(46,37,40,1)]">
+          🏠 홈
+        </a>
+        <a href="/about.html" id="nav-about" 
+          class="px-4 py-1.5 rounded-full text-lg font-bold transition-all duration-300 text-slate-700 hover:bg-white">
+          ✨ 나에 대해
+        </a>
+        <a href="/curation.html" id="nav-curation" 
+          class="px-4 py-1.5 rounded-full text-lg font-bold transition-all duration-300 text-slate-700 hover:bg-white">
+          🎨 취향 큐레이션
+        </a>
+      </nav>
     </div>
   </header>
 
-  <!-- HERO SECTION -->
-  <section class="hero" id="home">
-    <div class="hero__canvas-container">
-      <!-- Interactive canvas responding to mouse events -->
-      <canvas id="rhythm-visualizer"></canvas>
-    </div>
-    <div class="hero__content">
-      <div class="hero__badge">
-        <i class="fa-solid fa-gamepad"></i>
-        <span>LIVE SYSTEM ONLINE</span>
+  <!-- 메인 콘텐트 콘테이너 -->
+  <main class="flex-grow max-w-5xl w-full mx-auto px-4 py-8">
+
+    <!-- HOME SECTION -->
+    <section id="section-home" class="space-y-12 block">
+      
+      <!-- 히어로 섹션 (Hero Section) -->
+      <div class="bg-lavender-veil rounded-3xl p-6 md:p-10 retro-card flex flex-col md:flex-row items-center gap-8 relative overflow-hidden">
+        <div class="absolute -top-6 -right-6 w-20 h-20 bg-soft-blossom rounded-full opacity-60"></div>
+        <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-icy-blue rounded-full opacity-60"></div>
+
+        <div class="flex-1 space-y-4 z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-periwinkle border-2 border-slate-800 rounded-full text-sm font-bold shadow-[2px_2px_0px_0px_rgba(46,37,40,1)] text-white">
+            <span>🎮 LEVEL 99 EXPLORER</span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-bold leading-tight text-slate-800 max-w-2xl">
+            "디버깅부터 다크소울 보스까지 - 항상 어떤 도전에도 준비되어 있는 개발자"
+          </h1>
+          <p class="text-xl md:text-2xl text-slate-600 max-w-xl leading-relaxed">
+            안녕하세요! 저는 나를 표현하는 단 하나의 형용사, 
+            <span class="font-bold text-slate-900 border-b-4 border-dark-slate px-1">‘Versatile’(다재다능)</span> 그 자체입니다. 개발은 물론, 삶의 모든 도전을 하나의 신나는 퀘스트로 여깁니다!
+          </p>
+          <div class="pt-2 flex flex-wrap gap-3">
+            <a href="about.html" class="px-5 py-2.5 bg-baby-pink text-white font-bold rounded-2xl retro-border text-lg flex items-center gap-2">
+              내 능력치 보기
+            </a>
+            <a href="curation.html" class="px-5 py-2.5 bg-icy-blue text-slate-800 font-bold rounded-2xl retro-border text-lg flex items-center gap-2">
+              취향 가기
+            </a>
+          </div>
+        </div>
+
+        <!-- 히어로 귀여운 캐릭터 이미지 -->
+        <div class="w-full md:w-72 flex justify-center z-10">
+          <div class="relative bg-white p-4 rounded-3xl retro-card w-64 h-64 flex flex-col items-center justify-center bg-[radial-gradient(#FFE5F9_1px,transparent_1px)] [background-size:16px_16px]">
+            <!-- SVG 대신 이미지를 사용하며, 애니메이션과 크기를 유지합니다. -->
+            <img 
+              src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/doro.png?raw=true" 
+              alt="Hero Character" 
+              class="w-40 h-40 animate-bounce duration-1000 object-contain"
+            />
+            <div class="mt-3 px-3 py-1 bg-slate-800 text-white text-xs text-center rounded-full">아바타 향후 교체 예정...(대신 도로를 드리겠습니다)</div>
+          </div>
+        </div>
       </div>
-      <h1 class="hero__title readable-text">
-        <span>Multi-Paradigm</span> <span>Developer</span> & Subculture Explorer
-      </h1>
-      <p class="hero__catchphrase">
-        "새로운 프로그래밍 언어든, 무결점 보스 전이든 항상 배우고 끊임없이 도전합니다."
-      </p>
-      <p class="hero__bio readable-text">
-        초고속 정밀 게이밍과 견고한 소프트웨어 아키텍처의 균형을 맞추는 컴퓨터공학도입니다. C/C++, Java, C#, TypeScript, Go 등의 언어적 다재다능함을 갖추었으며, 복잡한 시스템을 파악하고 최적화하는 데 뛰어난 능력을 발휘합니다.
-      </p>
-      <div class="hero__actions">
-        <button class="btn btn--primary" id="btn-explore" onclick="document.getElementById('tech').scrollIntoView({behavior: 'smooth'})">
-          <i class="fa-solid fa-terminal"></i>
-          <span>보유 기술 확인</span>
-        </button>
-        <button class="btn btn--secondary" onclick="document.getElementById('arcade').scrollIntoView({behavior: 'smooth'})">
-          <i class="fa-solid fa-compact-disc"></i>
-          <span>아케이드 & 서브컬처</span>
-        </button>
-      </div>
-    </div>
-  </section>
 
-  <!-- TECHNICAL SECTION -->
-  <section class="section" id="tech">
-    <div class="section__header">
-      <h2 class="section__title"><i class="fa-solid fa-microchip"></i> <span>Technical</span> Capability</h2>
-      <div class="section__subtitle">PROG_LANG_INDEX // OVER_COMPUTATION</div>
-    </div>
-
-    <div class="tech">
-      <div class="tech__grid">
-        <!-- C/C++ Card -->
-        <div class="tech__card" onclick="triggerCardSound('C/C++')">
-          <div class="tech__card-header">
-            <h3 class="tech__card-name">C / C++</h3>
-            <i class="fa-solid fa-code tech__card-icon"></i>
-          </div>
-          <div class="tech__progress">
-            <div class="tech__progress-bar" style="width: 88%"></div>
-          </div>
-          <p class="tech__card-desc readable-text">
-            메모리 관리 제어, 고성능 시스템 설계, 게임 엔진 구현 및 하위 수준 최적화에 능숙합니다.
-          </p>
+      <!-- 요약 섹션 (Quick Overview) -->
+      <div class="space-y-6">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold text-dark-slate inline-block border-b-4 border-periwinkle px-4 pb-1">
+            저의 3가지 매력 시너지! ✨
+          </h2>
+          <p class="text-lg text-slate-500 mt-2">어떤 환경이나 기술 스택에도 두려움 없이 빠르게 녹아듭니다.</p>
         </div>
 
-        <!-- Java Card -->
-        <div class="tech__card" onclick="triggerCardSound('Java')">
-          <div class="tech__card-header">
-            <h3 class="tech__card-name">Java</h3>
-            <i class="fa-brands fa-java tech__card-icon"></i>
-          </div>
-          <div class="tech__progress">
-            <div class="tech__progress-bar" style="width: 85%"></div>
-          </div>
-          <p class="tech__card-desc readable-text">
-            객체 지향 설계(OOP)를 기반으로 한 견고한 엔터프라이즈 서버 개발, 안정적인 데이터 모델링 및 추상화 구조를 다룹니다.
-          </p>
-        </div>
-
-        <!-- C# Card -->
-        <div class="tech__card" onclick="triggerCardSound('C#')">
-          <div class="tech__card-header">
-            <h3 class="tech__card-name">C#</h3>
-            <i class="fa-solid fa-cubes tech__card-icon"></i>
-          </div>
-          <div class="tech__progress">
-            <div class="tech__progress-bar" style="width: 80%"></div>
-          </div>
-          <p class="tech__card-desc readable-text">
-            Unity 엔진을 활용한 인터랙티브 게임 개발, 데스크톱 애플리케이션 빌드 및 .NET 에코시스템 설계에 능합니다.
-          </p>
-        </div>
-
-        <!-- TypeScript Card -->
-        <div class="tech__card" onclick="triggerCardSound('TypeScript')">
-          <div class="tech__card-header">
-            <h3 class="tech__card-name">TypeScript</h3>
-            <i class="fa-brands fa-js tech__card-icon"></i>
-          </div>
-          <div class="tech__progress">
-            <div class="tech__progress-bar" style="width: 90%"></div>
-          </div>
-          <p class="tech__card-desc readable-text">
-            정적 타입을 활용한 견고하고 고도화된 풀스택 웹 애플리케이션, 인터랙티브 사용자 경험(UX) 제어 구조를 설계합니다.
-          </p>
-        </div>
-
-        <!-- Go Card -->
-        <div class="tech__card" onclick="triggerCardSound('Go')">
-          <div class="tech__card-header">
-            <h3 class="tech__card-name">Go (Golang)</h3>
-            <i class="fa-solid fa-network-wired tech__card-icon"></i>
-          </div>
-          <div class="tech__progress">
-            <div class="tech__progress-bar" style="width: 75%"></div>
-          </div>
-          <p class="tech__card-desc readable-text">
-            경량 스레드 기반의 고성능 동시성 파이프라인 설계, 마이크로서비스 설계 및 백엔드 네트워크 구조에 강합니다.
-          </p>
-        </div>
-
-        <!-- Computer Mastery Card -->
-        <div class="tech__card tech__card--wizard" onclick="triggerCardSound('Computer Wizardry')">
-          <i class="fa-solid fa-wand-magic-sparkles tech__wizard-icon"></i>
-          <div class="tech__wizard-content">
-            <div class="tech__card-header">
-              <h3 class="tech__card-name">System Engineering & Mastery</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- 매력카드 1 -->
+          <div class="bg-white p-6 rounded-2xl retro-card border-slate-800 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="w-12 h-12 bg-soft-blossom rounded-full border-2 border-slate-800 flex items-center justify-center text-xl font-bold shadow-[2px_2px_0px_0px_rgba(46,37,40,1)]">🔥</div>
+              <h3 class="text-2xl font-bold text-dark-slate">도전 정신 (Challenge)</h3>
+              <p class="text-slate-600 text-base leading-relaxed">
+                어려운 디버깅부터 복잡한 알고리즘, 심지어 극악 난이도의 다크소울 보스 레이드까지 절대 타협이나 포기 없이 끝장을 봅니다.
+              </p>
             </div>
-            <p class="tech__card-desc readable-text">
-              운영체제 전반에 대한 깊은 이해와 셸 스크립팅, 트러블슈팅, 최적의 하드웨어 환경 세팅 및 컴퓨터 수리/세팅 전반에 뛰어납니다.
+            <div class="mt-4 pt-3 border-t border-dashed border-slate-300 text-sm font-bold text-[#FF9BC6]">
+              #포기를모르는 #불굴의의지
+            </div>
+          </div>
+
+          <!-- 매력카드 2 -->
+          <div class="bg-white p-6 rounded-2xl retro-card border-slate-800 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="w-12 h-12 bg-periwinkle rounded-full border-2 border-slate-800 flex items-center justify-center text-xl font-bold shadow-[2px_2px_0px_0px_rgba(46,37,40,1)] text-white">🎵</div>
+              <h3 class="text-2xl font-bold text-dark-slate">리드미컬 (Rhythm)</h3>
+              <p class="text-slate-600 text-base leading-relaxed">
+                바쁜 개발 마감 속에서도 팀의 페이스를 조화롭게 튜닝합니다. 리듬게임 고수답게 조화롭고 규칙적인 협업 템포를 지향합니다.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-dashed border-slate-300 text-sm font-bold text-[#B7B6FF]">
+              #조화로운협업 #페이스메이커
+            </div>
+          </div>
+
+          <!-- 매력카드 3 -->
+          <div class="bg-white p-6 rounded-2xl retro-card border-slate-800 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="w-12 h-12 bg-icy-blue rounded-full border-2 border-slate-800 flex items-center justify-center text-xl font-bold shadow-[2px_2px_0px_0px_rgba(46,37,40,1)]">🧭</div>
+              <h3 class="text-2xl font-bold text-dark-slate">탐험가 (Explorer)</h3>
+              <p class="text-slate-600 text-base leading-relaxed">
+                신기술에 대한 두려움 제로! 낯선 프레임워크나 툴을 마주했을 때, 마치 모험 게임의 미개척지를 여는 듯한 쾌감을 느낍니다.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-dashed border-slate-300 text-sm font-bold text-[#AFDEFF]">
+              #트렌드세터 #기술탐험가
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 반사신경 테스트 미니 게임 섹션 (수정본) -->
+      <div class="bg-white p-6 rounded-3xl retro-card border-slate-800 space-y-6">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold text-dark-slate inline-block border-b-4 border-baby-pink px-4 pb-1">
+            🕹️ Versatile 반사신경 테스트!
+          </h2>
+          <p class="text-lg text-slate-500 mt-2">하이퍼 FPS와 리듬게임 고수인 주인장의 반사신경에 도전해보세요!</p>
+        </div>
+
+        <div class="max-w-md mx-auto">
+          <!-- 게임 스크린 -->
+          <div id="game-screen" class="w-full h-64 bg-icy-blue rounded-2xl border-4 border-dark-slate shadow-[4px_4px_0px_0px_rgba(46,37,40,1)] flex flex-col items-center justify-center cursor-pointer select-none transition-all duration-200 bg-cover bg-center">
+            <div id="game-icon" class="text-5xl mb-3">🎮</div>
+            <p id="game-message" class="text-2xl font-bold text-dark-slate text-center px-4">
+              여기를 클릭해서 테스트를 시작하세요!
+            </p>
+            <p id="game-sub-message" class="text-md text-slate-600 mt-1">
+              오버워치의 주노 얼굴이 뜨면 누구보다 빠르게 클릭!
             </p>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- RHYTHM GAME & MUSIC SECTION (BEMANI / J-POP) -->
-  <section class="section" id="arcade">
-    <div class="section__header">
-      <h2 class="section__title"><i class="fa-solid fa-music"></i> <span>Rhythm & Sound</span> Cabinets</h2>
-      <div class="section__subtitle">BEMANI_NETWORK // HIGH_TEMPO_BEATS</div>
-    </div>
-
-    <!-- Rhythm Game Cards -->
-    <div class="rhythm__grid">
-      <!-- Beatmania IIDX Card -->
-      <div class="arcade-card">
-        <div class="arcade-card__image-container">
-          <div class="arcade-card__badge">7 KEYS + TURNTABLE</div>
-          <img src="https://raw.githubusercontent.com/nyhryan/ssafy-vibe-site/refs/heads/master/assets/iidx.jpg" alt="beatmania IIDX cabinet layout" class="arcade-card__image" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=600'">
-        </div>
-        <div class="arcade-card__content">
-          <h3 class="arcade-card__title">beatmania IIDX</h3>
-          <p class="arcade-card__desc readable-text">
-            7개의 건반과 턴테이블을 조작하는 하이엔드 아케이드 기기. 고속으로 내리는 채보 패턴에 대한 판단력과 정밀하고 민첩한 타건 연타가 요구되는 정통 리듬 게임입니다.
-          </p>
-        </div>
-      </div>
-
-      <!-- Pop'n Music Card -->
-      <div class="arcade-card">
-        <div class="arcade-card__image-container">
-          <div class="arcade-card__badge">9 GIANT BUTTONS</div>
-          <img src="https://raw.githubusercontent.com/nyhryan/ssafy-vibe-site/refs/heads/master/assets/popn.png" alt="pop'n music interface" class="arcade-card__image" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=600'">
-        </div>
-        <div class="arcade-card__content">
-          <h3 class="arcade-card__title">pop'n music</h3>
-          <p class="arcade-card__desc readable-text">
-            9개의 거대한 유색 아케이드 버튼을 손과 팔을 활용해 조작하는 직관적 시스템. 민첩한 공간 인지, 정밀한 리듬감, 빠른 대처 능력을 요하는 기분 좋은 테크니컬 게임입니다.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- J-POP Playlist Embeds -->
-    <div class="music-player">
-      <h3 class="music-player__title"><i class="fa-solid fa-play"></i> <span>Favorite J-POP & Electronic Tracks</span></h3>
-      <div class="music-player__grid">
-        <!-- Track 1: Kabutomushi -->
-        <div class="music-card">
-          <div class="music-card__header">
-            <div class="music-card__track-info">
-              <h4 class="music-card__title">Kabutomushi (カブトムシ)</h4>
-              <span class="music-card__artist">aiko</span>
+          <!-- 기록 및 컨트롤 보드 -->
+          <div class="mt-4 flex items-center justify-between px-2">
+            <div class="text-dark-slate font-bold text-lg">
+              최근 기록: <span id="latest-score" class="text-slate-500">-</span>
             </div>
-            <span class="music-card__badge">J-POP</span>
-          </div>
-          <div class="music-card__video-wrapper">
-            <iframe src="https://www.youtube.com/embed/wp2U40KI63A" title="aiko- Kabutomushi" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-
-        <!-- Track 2: Der Freischütz -->
-        <div class="music-card">
-          <div class="music-card__header">
-            <div class="music-card__track-info">
-              <h4 class="music-card__title">魔弾～Der Freischütz～</h4>
-              <span class="music-card__artist">T.M.Revolution</span>
-            </div>
-            <span class="music-card__badge">Electronic Rock</span>
-          </div>
-          <div class="music-card__video-wrapper">
-            <iframe src="https://www.youtube.com/embed/DgQtZGzutj4" title="T.M.Revolution - Madan" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-
-        <!-- Track 3: Konayuki -->
-        <div class="music-card">
-          <div class="music-card__header">
-            <div class="music-card__track-info">
-              <h4 class="music-card__title">Konayuki (粉雪)</h4>
-              <span class="music-card__artist">Remioromen</span>
-            </div>
-            <span class="music-card__badge">Classic J-Rock</span>
-          </div>
-          <div class="music-card__video-wrapper">
-            <iframe src="https://www.youtube.com/embed/1wxTksLZ1Mw" title="Remioromen - Konayuki" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VIDEO GAMES SECTION -->
-  <section class="section" id="games">
-    <div class="section__header">
-      <h2 class="section__title">
-        <i class="fa-solid fa-gamepad"></i> 
-        <span>Gaming Station</span>
-      </h2>
-      <div class="section__subtitle">BATTLESTATION_LOG // APEX_PREDATOR</div>
-    </div>
-
-    <div class="games__categories">
-      <!-- Category 1: Hyper FPS -->
-      <div class="games__category-group">
-        <h3 class="games__category-title"><i class="fa-solid fa-crosshairs"></i> Hyper FPS</h3>
-        <div class="games__grid">
-          <!-- Overwatch Card -->
-          <div class="game-card" onclick="triggerCardSound('Overwatch')">
-            <div class="game-card__image-container">
-              <span class="game-card__badge">HYPER FPS</span>
-              <img src="https://raw.githubusercontent.com/nyhryan/ssafy-vibe-site/refs/heads/master/assets/ow.jpg" alt="Overwatch 2 visual action" class="game-card__image" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=600'">
-            </div>
-            <div class="game-card__content">
-              <h3 class="game-card__title">Overwatch</h3>
-              <p class="game-card__desc readable-text">
-                찰나의 반응 속도와 쿨타임 계산, 고속 전술 연계가 핵심인 하이퍼 팀 FPS입니다.
-              </p>
-            </div>
-          </div>
-
-          <!-- Apex Legends Card -->
-          <div class="game-card" onclick="triggerCardSound('Apex Legends')">
-            <div class="game-card__image-container">
-              <span class="game-card__badge">HYPER FPS</span>
-              <img src="https://raw.githubusercontent.com/nyhryan/ssafy-vibe-site/refs/heads/master/assets/apex.jpg" alt="Apex Legends team battle visual" class="game-card__image" onerror="this.src='https://images.unsplash.com/photo-1553481187-be93c21490a9?auto=format&fit=crop&q=80&w=600'">
-            </div>
-            <div class="game-card__content">
-              <h3 class="game-card__title">Apex Legends</h3>
-              <p class="game-card__desc readable-text">
-                정교한 무빙 기교와 끈질긴 트래킹 에임이 요구되는 초고속 배틀로얄 게임입니다.
-              </p>
-            </div>
+            <button id="reset-game-btn" class="px-4 py-1.5 bg-lavender-veil text-dark-slate font-bold rounded-full border-2 border-slate-800 text-sm hover:bg-white transition-colors">
+              기록 초기화
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- Category 2: Souls-Like -->
-      <div class="games__category-group">
-        <h3 class="games__category-title"><i class="fa-solid fa-skull"></i> Souls-Like</h3>
-        <div class="games__grid">
-          <!-- Elden Ring Card -->
-          <div class="game-card" onclick="triggerCardSound('Elden Ring')">
-            <div class="game-card__image-container">
-              <span class="game-card__badge">SOULS-LIKE</span>
-              <img src="https://raw.githubusercontent.com/nyhryan/ssafy-vibe-site/refs/heads/master/assets/er.jpg" alt="Elden Ring dramatic landscape" class="game-card__image" onerror="this.src='https://images.unsplash.com/photo-1656268164012-11c304bfd266?auto=format&fit=crop&q=80&w=600'">
-            </div>
-            <div class="game-card__content">
-              <h3 class="game-card__title">Elden Ring</h3>
-              <p class="game-card__desc readable-text">
-                압도적인 스케일의 오픈월드 다크 판타지. 정교한 보스 패턴 분석과 타이밍 계산이 요구됩니다.
-              </p>
-            </div>
-          </div>
+      <!-- 게임 스크립트 (이미지 프리로딩 적용 버전) -->
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const screen = document.getElementById('game-screen');
+          const icon = document.getElementById('game-icon');
+          const message = document.getElementById('game-message');
+          const subMessage = document.getElementById('game-sub-message');
+          const latestScoreDisplay = document.getElementById('latest-score');
+          const resetBtn = document.getElementById('reset-game-btn');
 
-          <!-- Elden Ring Nightreign Card -->
-          <div class="game-card" onclick="triggerCardSound('Nightreign')">
-            <div class="game-card__image-container">
-              <span class="game-card__badge">SOULS-LIKE</span>
-              <img src="https://raw.githubusercontent.com/nyhryan/ssafy-vibe-site/refs/heads/master/assets/nightering.jpg" alt="Elden Ring Nightreign co-op battle visual" class="game-card__image" onerror="this.src='https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&q=80&w=600'">
-            </div>
-            <div class="game-card__content">
-              <h3 class="game-card__title">Elden Ring Nightreign</h3>
-              <p class="game-card__desc readable-text">
-                리얼타임 전투 반사 신경을 극한까지 시험하는 소울 협동 액션의 새로운 진화작입니다.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+          let state = 'WAITING'; // WAITING, READY, CLICKABLE, RESULT
+          let timeoutId = null;
+          let startTime = 0;
 
-      <!-- Category 3: Racing -->
-      <div class="games__category-group">
-        <h3 class="games__category-title"><i class="fa-solid fa-gauge-high"></i> Racing</h3>
-        <div class="games__grid">
-          <!-- Forza Horizon 6 Card -->
-          <div class="game-card" onclick="triggerCardSound('Forza Horizon')">
-            <div class="game-card__image-container">
-              <span class="game-card__badge">RACING</span>
-              <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600" alt="Sleek racing car visual" class="game-card__image">
-            </div>
-            <div class="game-card__content">
-              <h3 class="game-card__title">Forza Horizon 6</h3>
-              <p class="game-card__desc readable-text">
-                오픈 월드 레이싱 최적화, 고정밀 물리 엔진 기반의 속도 제어 및 역동적인 환경에서의 드래프트 계산을 수행합니다.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+          // 주노 이미지 URL 설정
+          const junoImgUrl = "https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/juno.jpg?raw=true";
 
-  <!-- MOVIES & ANIME SECTION -->
-  <section class="section" id="screen">
-    <div class="section__header">
-      <h2 class="section__title"><i class="fa-solid fa-film"></i> <span>Cinematic Selection</span></h2>
-      <div class="section__subtitle">CRIME_HEIST_90s // COZY_SLICES</div>
-    </div>
+          // [핵심 추가] 이미지 프리로딩 (Preloading)
+          // 페이지가 열리자마자 백그라운드에서 이미지를 미리 다운로드하여 브라우저 메모리에 캐싱합니다.
+          const preloadedImg = new Image();
+          preloadedImg.src = junoImgUrl;
 
-    <!-- Movie IMDb Cards -->
-    <div class="movies__grid">
-      <!-- Ocean's Eleven -->
-      <div class="movie-card" onclick="openIMDb('https://www.imdb.com/title/tt0240772/?ref_=ext_shr_lnk')">
-        <div class="movie-card__header">
-          <span class="movie-card__genre">HEIST / COMEDY</span>
-          <i class="fa-brands fa-imdb tech__card-icon"></i>
-        </div>
-        <div>
-          <h3 class="movie-card__title">Ocean's Eleven (2001)</h3>
-          <p class="movie-card__desc readable-text">
-            탁월하고 완벽하게 조율된 범죄 계획, 감각적이고 유려한 재즈 사운드트랙. 고도로 협동하는 영리한 집단 지성 범죄물의 교과서이자 정점입니다.
-          </p>
-        </div>
-        <div class="movie-card__imdb-link">
-          <span>Inspect on IMDb</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </div>
-      </div>
-
-      <!-- Goodfellas -->
-      <div class="movie-card" onclick="openIMDb('https://www.imdb.com/title/tt0099685/?ref_=ext_shr_lnk')">
-        <div class="movie-card__header">
-          <span class="movie-card__genre">CLASSIC CRIME</span>
-          <i class="fa-brands fa-imdb tech__card-icon"></i>
-        </div>
-        <div>
-          <h3 class="movie-card__title">Goodfellas (1990)</h3>
-          <p class="movie-card__desc readable-text">
-            마틴 스코세이지 감독 특유의 타이트한 편집 리듬과 몰입도 높은 서브컬처적 구성, 독보적이며 세련된 연출의 명작입니다.
-          </p>
-        </div>
-        <div class="movie-card__imdb-link">
-          <span>Inspect on IMDb</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </div>
-      </div>
-
-      <!-- The Italian Job -->
-      <div class="movie-card" onclick="openIMDb('https://www.imdb.com/title/tt0317740/?ref_=ext_shr_lnk')">
-        <div class="movie-card__header">
-          <span class="movie-card__genre">ACTION / CRIME</span>
-          <i class="fa-brands fa-imdb tech__card-icon"></i>
-        </div>
-        <div>
-          <h3 class="movie-card__title">The Italian Job (2003)</h3>
-          <p class="movie-card__desc readable-text">
-            정밀하게 해킹된 신호 체계, 세련된 미니쿠퍼 레이싱의 속도감 넘치는 탈출 경로. 이공계적 설계가 결합한 독특한 하이스트 장르의 정수입니다.
-          </p>
-        </div>
-        <div class="movie-card__imdb-link">
-          <span>Inspect on IMDb</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </div>
-      </div>
-    </div>
-
-    <!-- Anime Video Section -->
-    <div class="anime">
-      <h3 class="music-player__title"><i class="fa-solid fa-clapperboard"></i> <span>Essential Slice-of-Life & Comedy</span></h3>
-      <div class="anime__grid">
-        <!-- Chainsmoker Cat -->
-        <div class="anime-card">
-          <div class="anime-card__info">
-            <h4 class="anime-card__title">Chainsmoker Cat</h4>
-            <span class="anime-card__genre">COMEDY / MEME</span>
-          </div>
-          <div class="music-card__video-wrapper">
-            <iframe src="https://www.youtube.com/embed/mrZ8fd4hGoY" title="Chainsmoker Cat" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-
-        <!-- Lucky Star -->
-        <div class="anime-card">
-          <div class="anime-card__info">
-            <h4 class="anime-card__title">Lucky☆Star (らき☆すた)</h4>
-            <span class="anime-card__genre">SLICE-OF-LIFE</span>
-          </div>
-          <div class="music-card__video-wrapper">
-            <iframe src="https://www.youtube.com/embed/6iseNlvH2_s" title="Lucky Star Opening" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INTERACTIVE DEV CONSOLE & FOOTER -->
-  <footer class="footer">
-    <div class="footer__container">
-      
-      <!-- Interactive Retro Contact Terminal -->
-      <div class="terminal">
-        <div class="terminal__header">
-          <div class="terminal__dots">
-            <div class="terminal__dot terminal__dot--red"></div>
-            <div class="terminal__dot terminal__dot--yellow"></div>
-            <div class="terminal__dot terminal__dot--green"></div>
-          </div>
-          <div class="terminal__title" id="terminal-title">USER@CONNECTION-STATION: ~ (Diagnostic Contact Console)</div>
-          <div><i class="fa-solid fa-wifi" style="color: var(--color-accent); animation: pulse 1.5s infinite"></i> PORT_99102</div>
-        </div>
-        <div class="terminal__body" id="terminal-body">
-          <form class="terminal__form" id="contact-form">
-            <div class="terminal__system-log">
-              === 보안 연락망 트랜스미터 노드 v1.2 ===
-              [상태] 수신자 NYHRYAN 노드와 채널 동기화 완료
-            </div>
+          // 상태 변경 함수 (배경 이미지 설정 기능 포함)
+          function setScreenState(bgClass, bgImg, iconText, msgText, subText, isDarkText = true) {
+            screen.className = `w-full h-64 ${bgClass} rounded-2xl border-4 border-dark-slate shadow-[4px_4px_0px_0px_rgba(46,37,40,1)] flex flex-col items-center justify-center cursor-pointer select-none transition-all duration-200 bg-cover bg-center`;
+            screen.style.backgroundImage = bgImg ? `url('${bgImg}')` : 'none';
             
-            <div class="terminal__form-group">
-              <span class="terminal__form-label">IDENTITY_NAME_PROMPT_></span>
-              <input type="text" id="form-name" class="terminal__form-input" required autocomplete="off" placeholder="본인의 성함 또는 식별코드 입력...">
-            </div>
-            
-            <div class="terminal__form-group">
-              <span class="terminal__form-label">SENDER_EMAIL_PROMPT_></span>
-              <input type="email" id="form-email" class="terminal__form-input" required autocomplete="off" placeholder="답장 받으실 이메일 주소...">
-            </div>
-            
-            <div class="terminal__form-group">
-              <span class="terminal__form-label">PAYLOAD_MSG_PROMPT__></span>
-              <textarea id="form-message" class="terminal__form-textarea" required autocomplete="off" placeholder="NYHRYAN에게 보낼 내용을 작성하세요..."></textarea>
-            </div>
-            
-            <button type="submit" class="terminal__form-submit" id="form-submit-btn">> 패킷 컴파일 및 암호화 전송</button>
-          </form>
+            icon.textContent = iconText;
+            message.textContent = msgText;
+            subMessage.textContent = subText;
 
-          <div class="terminal__log-output" id="terminal-log-output" style="display: none;"></div>
-        </div>
-        
-        <!-- Quick Action Access Bar inside Terminal -->
-        <div class="terminal__header" style="border-top: 1px solid var(--color-card-border); border-bottom: none; background: rgba(27,105,132,0.05);">
-          <div class="terminal__title" style="font-size: 0.75rem;">QUICK_CONNECT //</div>
-          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="mailto:nyhryan99102@gmail.com" class="footer__social-link" style="font-size: 0.85rem; display: flex; align-items: center; gap: 0.25rem;" onclick="playSynthBeep(659.25, 0.1, 'sine')">
-              <i class="fa-solid fa-envelope" style="color: var(--color-accent)"></i> nyhryan99102@gmail.com
-            </a>
-            <a href="https://github.com/nyhryan" target="_blank" class="footer__social-link" style="font-size: 0.85rem; display: flex; align-items: center; gap: 0.25rem;" onclick="playSynthBeep(659.25, 0.1, 'sine')">
-              <i class="fa-brands fa-github" style="color: var(--color-primary)"></i> github.com/nyhryan
-            </a>
+            // 이미지가 떴을 때 텍스트 가독성을 위해 흰색 스타일 적용
+            if (!isDarkText) {
+              message.className = "text-2xl font-black text-white text-center px-4 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]";
+              subMessage.className = "text-md font-bold text-white mt-1 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]";
+              icon.className = "text-5xl mb-3 drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]";
+            } else {
+              message.className = "text-2xl font-bold text-dark-slate text-center px-4";
+              subMessage.className = "text-md text-slate-600 mt-1";
+              icon.className = "text-5xl mb-3";
+            }
+          }
+
+          screen.addEventListener('mousedown', () => {
+            if (state === 'WAITING' || state === 'RESULT') {
+              state = 'READY';
+              setScreenState('bg-soft-blossom', null, '⏳', '준비하세요...', '주노 얼굴이 뜨면 누구보다 빠르게 클릭!', true);
+              
+              const randomDelay = Math.random() * 3000 + 2000;
+              
+              timeoutId = setTimeout(() => {
+                state = 'CLICKABLE';
+                // 이미 프리로딩된 이미지를 사용하므로 지연 없이 즉시 화면에 노출됩니다.
+                setScreenState('', junoImgUrl, '💥', '지금 클릭하세요!!!', '빨리빨리!', false);
+                startTime = performance.now();
+              }, randomDelay);
+
+            } else if (state === 'READY') {
+              clearTimeout(timeoutId);
+              state = 'RESULT';
+              setScreenState('bg-baby-pink', null, '❌', '너무 빨랐어요!', '얼굴이 변한 뒤에 클릭해야 합니다. 다시 시도!', true);
+              latestScoreDisplay.textContent = '부정출발';
+
+            } else if (state === 'CLICKABLE') {
+              const endTime = performance.now();
+              const reactionTime = Math.round(endTime - startTime);
+              state = 'RESULT';
+
+              let evaluation = '대단해요! ⚡';
+              if (reactionTime < 180) evaluation = '신 인 가 요 ? 👑';
+              else if (reactionTime > 300) evaluation = '조금 더 집중해봐요! 🐢';
+
+              setScreenState('bg-lavender-veil', null, '🏆', `${reactionTime}ms`, evaluation, true);
+              latestScoreDisplay.textContent = `${reactionTime}ms`;
+            }
+          });
+
+          resetBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            clearTimeout(timeoutId);
+            state = 'WAITING';
+            setScreenState('bg-icy-blue', null, '🎮', '여기를 클릭해서 테스트을 시작하세요!', '주노 얼굴이 뜨면 누구보다 빠르게 클릭!', true);
+            latestScoreDisplay.textContent = '-';
+          });
+        });
+      </script>
+
+      <!-- 취향 스냅샷 (Taste Preview 위젯) -->
+      <div class="bg-soft-blossom/20 p-6 rounded-3xl retro-card">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+              <span>🍰</span> 은밀하고 매력적인 취향 스냅샷
+            </h3>
+            <p class="text-md text-slate-500">클릭하면 상세한 큐레이션 서브페이지로 즉시 여행합니다!</p>
           </div>
+          <a href="curation.html" class="px-4 py-2 bg-white rounded-full border-2 border-slate-800 font-bold hover:bg-slate-800 hover:text-white transition-all text-sm">
+            전체 큐레이션 보기 ➔
+          </a>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <!-- 특정 카테고리로 필터링을 쉽게 유도하도록 파라미터나 해시를 활용할 수 있게 링크 설정 -->
+          <a href="curation.html?category=movie" class="bg-white p-4 rounded-xl border-2 border-slate-800 hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_0px_rgba(46,37,40,1)] transition-all">
+            <div class="text-3xl mb-1">🎬</div>
+            <h4 class="font-bold text-lg text-slate-800">MOVIE</h4>
+            <p class="text-xs text-slate-500">인생의 영감을 준 시네마</p>
+          </a>
+          <a href="curation.html?category=anime" class="bg-white p-4 rounded-xl border-2 border-slate-800 hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_0px_rgba(46,37,40,1)] transition-all">
+            <div class="text-3xl mb-1">🏮</div>
+            <h4 class="font-bold text-lg text-slate-800">ANIME</h4>
+            <p class="text-xs text-slate-500">세계를 구성하는 상상력</p>
+          </a>
+          <a href="curation.html?category=music" class="bg-white p-4 rounded-xl border-2 border-slate-800 hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_0px_rgba(46,37,40,1)] transition-all">
+            <div class="text-3xl mb-1">🎧</div>
+            <h4 class="font-bold text-lg text-slate-800">MUSIC</h4>
+            <p class="text-xs text-slate-500">리듬을 이끄는 플레이리스트</p>
+          </a>
+          <a href="curation.html?category=travel" class="bg-white p-4 rounded-xl border-2 border-slate-800 hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_0px_rgba(46,37,40,1)] transition-all">
+            <div class="text-3xl mb-1">✈️</div>
+            <h4 class="font-bold text-lg text-slate-800">TRAVEL</h4>
+            <p class="text-xs text-slate-500">영감을 채우는 미지의 공간</p>
+          </a>
+          <a href="curation.html?category=game" class="bg-white p-4 rounded-xl border-2 border-slate-800 hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_0px_rgba(46,37,40,1)] transition-all">
+            <div class="text-3xl mb-1">🎮</div>
+            <h4 class="font-bold text-lg text-slate-800">GAME</h4>
+            <p class="text-xs text-slate-500">인내심을 기르는 수련의 장</p>
+          </a>
         </div>
       </div>
 
-      <!-- Footer Bottom -->
-      <div class="footer__bottom">
-        <div class="footer__copyright">
-          © 2026 // System.Portfolio. All rights, subcultures, and high scores reserved.
-        </div>
-        <div class="footer__socials">
-          <a href="https://github.com/nyhryan" target="_blank" class="footer__social-link" aria-label="GitHub Link"><i class="fa-brands fa-github"></i></a>
-          <a href="mailto:nyhryan99102@gmail.com" class="footer__social-link" aria-label="Email Link"><i class="fa-solid fa-envelope"></i></a>
-        </div>
-      </div>
-
+    </section>
+  </main>
+  
+  <!-- 푸터 영역 -->
+  <footer class="mt-12 bg-slate-800 text-white py-8 border-t-4 border-slate-900 text-center text-lg space-y-3">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <span class="font-bold tracking-wider text-xl text-soft-blossom">
+        🌸 I AM - 클래스메이트 여러분 환영합니다!
+      </span>
+      <p class="text-xs text-slate-400">
+        © 2026. I AM. All rights reserved. <br class="md:hidden">
+        Powered by TailwindCSS & Noto Sans KR.
+      </p>
     </div>
   </footer>
-
-  <!-- INTERACTIVE ENGINE SCRIPT -->
-  <script>
-    // ==========================================================================
-    // 1. RETRO SOUND EFFECTS GENERATOR (Web Audio API)
-    // ==========================================================================
-    let audioCtx = null;
-    let sfxEnabled = true;
-
-    function initAudioContext() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-    }
-
-    function playSynthBeep(frequency, duration, type = 'sine', volume = 0.1) {
-      if (!sfxEnabled) return;
-      try {
-        initAudioContext();
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-
-        const osc = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
-
-        osc.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-
-        osc.type = type;
-        osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
-        
-        gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (err) {}
-    }
-
-    // Toggle sound effects globally
-    document.getElementById('sound-toggle-btn').addEventListener('click', () => {
-      sfxEnabled = !sfxEnabled;
-      const soundIcon = document.getElementById('sound-icon');
-      const soundText = document.querySelector('#sound-toggle-btn span');
-
-      if (sfxEnabled) {
-        soundIcon.className = "fa-solid fa-volume-high";
-        soundText.textContent = "효과음 켬";
-        playSynthBeep(600, 0.1, 'square');
-      } else {
-        soundIcon.className = "fa-solid fa-volume-xmark";
-        soundText.textContent = "효과음 끔";
-      }
-    });
-
-    // Keyboard keystroke sound emulator for form input fields
-    const formFields = ['form-name', 'form-email', 'form-message'];
-    formFields.forEach(id => {
-      document.getElementById(id).addEventListener('input', () => {
-        const randomFreq = 250 + Math.random() * 350;
-        playSynthBeep(randomFreq, 0.03, 'sine', 0.05);
-      });
-    });
-
-    function triggerCardSound(techName) {
-      playSynthBeep(523.25, 0.08, 'square', 0.05);
-      setTimeout(() => {
-        playSynthBeep(659.25, 0.08, 'square', 0.05);
-      }, 60);
-    }
-
-    // ==========================================================================
-    // 2. INTERACTIVE CANVAS VISUALIZER
-    // ==========================================================================
-    const canvas = document.getElementById('rhythm-visualizer');
-    const ctx = canvas.getContext('2d');
-
-    let mouse = { x: null, y: null };
-    let ripples = [];
-
-    function resizeCanvas() {
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    canvas.addEventListener('mousemove', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-
-      if (Math.random() < 0.12) {
-        ripples.push({
-          x: mouse.x,
-          y: mouse.y,
-          size: 1,
-          maxSize: 30 + Math.random() * 40,
-          opacity: 0.8,
-          speed: 1 + Math.random() * 2,
-          color: 'rgba(30, 181, 234, 0.6)'
-        });
-      }
-    });
-
-    canvas.addEventListener('mousedown', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const clickY = e.clientY - rect.top;
-      
-      playSynthBeep(880, 0.15, 'triangle', 0.1);
-
-      for (let i = 0; i < 3; i++) {
-        ripples.push({
-          x: clickX,
-          y: clickY,
-          size: 5,
-          maxSize: 100 + (i * 40),
-          opacity: 1.0 - (i * 0.2),
-          speed: 1.5 + (i * 1.5),
-          color: i % 2 === 0 ? 'rgba(156, 205, 222, 0.7)' : 'rgba(30, 181, 234, 0.8)'
-        });
-      }
-    });
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const laneCount = 9;
-      const laneWidth = canvas.width / laneCount;
-      ctx.strokeStyle = 'rgba(27, 105, 132, 0.04)';
-      ctx.lineWidth = 1;
-      
-      for (let i = 1; i < laneCount; i++) {
-        ctx.beginPath();
-        ctx.moveTo(i * laneWidth, 0);
-        ctx.lineTo(i * laneWidth, canvas.height);
-        ctx.stroke();
-      }
-
-      for (let i = ripples.length - 1; i >= 0; i--) {
-        const ripple = ripples[i];
-        ripple.size += ripple.speed;
-        ripple.opacity -= 0.015;
-
-        if (ripple.opacity <= 0 || ripple.size >= ripple.maxSize) {
-          ripples.splice(i, 1);
-          continue;
-        }
-
-        ctx.strokeStyle = ripple.color;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(ripple.x, ripple.y, ripple.size, 0, Math.PI * 2);
-        ctx.stroke();
-
-        ctx.strokeStyle = 'rgba(156, 205, 222, 0.15)';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(ripple.x - ripple.size/2, ripple.y - ripple.size/2, ripple.size, ripple.size);
-      }
-
-      if (Math.random() < 0.05) {
-        ripples.push({
-          x: Math.random() * canvas.width,
-          y: 0,
-          size: 1,
-          maxSize: canvas.height,
-          opacity: 0.4,
-          speed: 4 + Math.random() * 5,
-          color: 'rgba(27, 105, 132, 0.3)'
-        });
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    window.onload = function () {
-      animate();
-    }
-
-    // ==========================================================================
-    // 3. INTERACTIVE PORTFOLIO CONTACT FORM HANDLER
-    // ==========================================================================
-    const contactForm = document.getElementById('contact-form');
-    const logOutput = document.getElementById('terminal-log-output');
-
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const name = document.getElementById('form-name').value.trim();
-      const email = document.getElementById('form-email').value.trim();
-      const message = document.getElementById('form-message').value.trim();
-
-      // Clear input fields
-      document.getElementById('form-name').value = '';
-      document.getElementById('form-email').value = '';
-      document.getElementById('form-message').value = '';
-
-      // Hide Form UI and Show terminal sequence logs
-      contactForm.style.display = 'none';
-      logOutput.style.display = 'block';
-      logOutput.innerHTML = '';
-
-      // Simulated packet routing output logs (Korean-focused)
-      const logs = [
-        `[시스템] 로컬 단말기를 통한 전송 데이터 컴파일링 시작...`,
-        `[암호화 진행] 발신자 식별 페이로드 패킹 완료: "${name}"...`,
-        `[라우팅] 수신 대상 도메인 주소 분석 중: nyhryan99102@gmail.com...`,
-        `[보안검증] 안전 프록시 통신 레이어 핸드셰이크 세션 셋업 완료.`,
-        `[데이터 전송] 데이터 세그먼트 전송 진행률 [████████████████████████] 100%`,
-        `\n=== 안전 패킷 전송 성공 (시뮬레이션 모드) ===\n성공적으로 접수되었습니다, ${name}님! 작성하신 가상 메시지 패킷이 전달되었습니다.\n`
-      ];
-
-      let logIndex = 0;
-      function printNextLog() {
-        if (logIndex < logs.length) {
-          const logLine = document.createElement('div');
-          logLine.textContent = logs[logIndex];
-          logOutput.appendChild(logLine);
-          
-          playSynthBeep(350 + (logIndex * 90), 0.08, 'square', 0.04);
-          
-          logIndex++;
-          setTimeout(printNextLog, 450);
-        } else {
-          playSynthBeep(880, 0.25, 'triangle', 0.1);
-
-          // Add interactive Reset Button
-          const returnBtn = document.createElement('button');
-          returnBtn.className = 'terminal__form-submit';
-          returnBtn.style.marginTop = '1rem';
-          returnBtn.textContent = `[ 새 메시지 작성하기 ]`;
-          returnBtn.onclick = () => {
-            playSynthBeep(600, 0.05, 'sine');
-            logOutput.style.display = 'none';
-            contactForm.style.display = 'flex';
-          };
-          logOutput.appendChild(returnBtn);
-        }
-      }
-
-      printNextLog();
-    });
-
-    function openIMDb(url) {
-      playSynthBeep(600, 0.08, 'sine');
-      window.open(url, '_blank');
-    }
-  </script>
 </body>
 </html>

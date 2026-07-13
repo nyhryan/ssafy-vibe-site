@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I AM - Curation</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Noto Sans KR', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body, button, input, textarea, select {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    :root {
+      --baby-pink: #FF9BC6;
+      --soft-blossom: #FFBCD6;
+      --lavender-veil: #FFE5F9;
+      --periwinkle: #B7B6FF;
+      --icy-blue: #AFDEFF;
+      --dark-slate: #2E2528;
+    }
+
+    .bg-baby-pink { background-color: var(--baby-pink); }
+    .bg-soft-blossom { background-color: var(--soft-blossom); }
+    .bg-lavender-veil { background-color: var(--lavender-veil); }
+    .bg-periwinkle { background-color: var(--periwinkle); }
+    .bg-icy-blue { background-color: var(--icy-blue); }
+    .text-dark-slate { color: var(--dark-slate); }
+    .border-dark-slate { border-color: var(--dark-slate); }
+
+    .retro-border {
+      border: 4px solid var(--dark-slate);
+      box-shadow: 4px 4px 0px 0px var(--dark-slate);
+      transition: all 0.2s ease-in-out;
+    }
+    .retro-border:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px 0px var(--dark-slate);
+    }
+    .retro-border:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px 0px var(--dark-slate);
+    }
+
+    .retro-card {
+      border: 4px solid var(--dark-slate);
+      box-shadow: 5px 5px 0px 0px var(--dark-slate);
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--lavender-veil);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--periwinkle);
+      border-radius: 9999px;
+      border: 2px solid var(--dark-slate);
+    }
+  </style>
+</head>
+<body class="bg-[#FFFDFE] font-sans text-slate-800 min-h-screen flex flex-col selection:bg-[#FF9BC6] selection:text-white">
+
+
+  <!-- 헤더 & 네비게이션 바 -->
+  <header class="sticky top-0 z-50 px-4 py-3 bg-[#FFFDFE]/90 backdrop-blur-md border-b-4 border-slate-800">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+      <!-- 로고 영역 -->
+      <a href="/index.html" class="flex items-center gap-2 group">
+        <span class="text-2xl font-bold tracking-wider text-dark-slate group-hover:text-[#FF9BC6] transition-colors">
+          I AM
+        </span>
+      </a>
+
+      <!-- 둥근 형태의 귀여운 탭 메뉴 -->
+      <nav class="flex items-center gap-2 bg-lavender-veil p-1.5 rounded-full border-2 border-slate-800">
+        <a href="/index.html" id="nav-home" 
+          class="px-4 py-1.5 rounded-full text-lg font-bold transition-all duration-300 text-slate-700 hover:bg-white">
+          🏠 홈
+        </a>
+        <a href="/about.html" id="nav-about" 
+          class="px-4 py-1.5 rounded-full text-lg font-bold transition-all duration-300 text-slate-700 hover:bg-white">
+          ✨ 나에 대해
+        </a>
+        <a href="/curation.html" id="nav-curation" 
+          class="px-4 py-1.5 rounded-full text-lg font-bold transition-all duration-300 bg-baby-pink text-white border-2 border-slate-800 shadow-[2px_2px_0px_0px_rgba(46,37,40,1)]">
+          🎨 취향 큐레이션
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 메인 콘텐트 콘테이너 -->
+  <main class="flex-grow max-w-5xl w-full mx-auto px-4 py-8">
+
+    <!-- CULTURE CURATION SECTION -->
+    <section id="section-curation" class="space-y-12 block">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <h2 class="text-3xl font-bold text-dark-slate inline-block border-b-4 border-baby-pink px-4 pb-1">
+          🎨 나의 영감 큐레이션 보드
+        </h2>
+        <p class="text-slate-500 text-lg">
+          개발자의 취향은 곧 결과물로 발현됩니다. 제 영혼을 가득 채우는 작품들과 여정의 조각들을 아카이빙합니다.
+        </p>
+      </div>
+
+      <!-- 내부 큐레이션 카테고리 탭 스위처 -->
+      <div class="flex justify-center gap-2 flex-wrap">
+        <button onclick="filterCuration('all')" id="tab-cur-all" class="px-4 py-2 rounded-full border-2 border-slate-800 bg-baby-pink text-white font-bold shadow-[2px_2px_0px_0px_rgba(46,37,40,1)] text-md">
+          ⭐ 전체보기
+        </button>
+        <button onclick="filterCuration('movie')" id="tab-cur-movie" class="px-4 py-2 rounded-full border-2 border-slate-800 bg-white text-slate-700 font-bold hover:bg-slate-50 text-md">
+          🎬 영화
+        </button>
+        <button onclick="filterCuration('anime')" id="tab-cur-anime" class="px-4 py-2 rounded-full border-2 border-slate-800 bg-white text-slate-700 font-bold hover:bg-slate-50 text-md">
+          🏮 애니
+        </button>
+        <button onclick="filterCuration('music')" id="tab-cur-music" class="px-4 py-2 rounded-full border-2 border-slate-800 bg-white text-slate-700 font-bold hover:bg-slate-50 text-md">
+          🎧 음악
+        </button>
+        <button onclick="filterCuration('travel')" id="tab-cur-travel" class="px-4 py-2 rounded-full border-2 border-slate-800 bg-white text-slate-700 font-bold hover:bg-slate-50 text-md">
+          ✈️ 여행
+        </button>
+        <button onclick="filterCuration('game')" id="tab-cur-game" class="px-4 py-2 rounded-full border-2 border-slate-800 bg-white text-slate-700 font-bold hover:bg-slate-50 text-md">🎮 게임</button>
+      </div>
+
+      <!-- 폴라로이드 스타일의 그리드 영역 -->
+      <div id="curation-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- ==================== MOVIE SECTION ==================== -->
+        <!-- 영화 1 -->
+        <a href="https://www.imdb.com/title/tt0240772/?ref_=ext_shr_lnk" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="movie">
+          <div class="relative bg-lavender-veil rounded-xl overflow-hidden border-2 border-slate-800 h-64 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/oceans%20eleven.jpg?raw=true" alt="Ocean's Eleven" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎬 MOVIE</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">Ocean's Eleven (2001)</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">라스베이거스 카지노를 털기 위해 모인 11명 전문가들의 완벽한 케미스트리와 짜릿한 팀워크가 돋보이는 케이퍼 무비의 걸작.</p>
+          </div>
+        </a>
+
+        <!-- 영화 2 -->
+        <a href="https://www.imdb.com/title/tt0099685/?ref_=ext_shr_lnk" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="movie">
+          <div class="relative bg-lavender-veil rounded-xl overflow-hidden border-2 border-slate-800 h-64 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/goodfellas.jpg?raw=true" alt="GoodFellas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎬 MOVIE</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">GoodFellas (1990)</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">마틴 스코세이지 감독이 그려낸 마피아 세계의 냉혹한 현실과 흥망성쇠. 흡입력 있는 연출과 배우들의 명연기가 압권인 작품.</p>
+          </div>
+        </a>
+
+        <!-- 영화 3 -->
+        <a href="https://www.imdb.com/title/tt0317740/?ref_=ext_shr_lnk" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="movie">
+          <div class="relative bg-lavender-veil rounded-xl overflow-hidden border-2 border-slate-800 h-64 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/italian%20job.jpg?raw=true" alt="The Italian Job" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎬 MOVIE</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">The Italian Job (2003)</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">금괴를 되찾기 위해 뭉친 도둑들의 숨막히는 두뇌 싸움. 베네치아의 운하와 LA 도심을 누비는 미니쿠퍼 카체이싱 액션의 쾌감.</p>
+          </div>
+        </a>
+
+        <!-- ==================== MUSIC SECTION ==================== -->
+        <!-- 음악 1 -->
+        <div class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 cursor-pointer hover:bg-slate-50" data-category="music" onclick="loadSong('카부톰시 (カブトムシ)', 'aiko - J-POP')">
+          <div class="relative rounded-xl overflow-hidden border-2 border-slate-800 aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/wp2U40KI63A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎧 MUSIC</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800">카부토무시 (カブトムシ)</h4>
+            <p class="text-slate-500 text-sm font-semibold">아티스트: aiko (J-POP)</p>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">aiko 특유의 독창적인 멜로디 라인과 시적인 가사가 돋보이는 발라드로, 오랜 시간 사랑받아 온 메가 히트곡.</p>
+          </div>
+        </div>
+
+        <!-- 음악 2 -->
+        <div class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 cursor-pointer hover:bg-slate-50" data-category="music" onclick="loadSong('魔弾～Der Freischütz～', 'T.M.Revolution - J-POP')">
+          <div class="relative rounded-xl overflow-hidden border-2 border-slate-800 aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/DgQtZGzutj4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎧 MUSIC</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800">魔弾～Der Freischütz～</h4>
+            <p class="text-slate-500 text-sm font-semibold">아티스트: T.M.Revolution (J-POP)</p>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">파워풀하고 폭발적인 보컬과 시원하고 빠른 비트가 어우러져 듣는 순간 아드레날린을 뿜어내게 만드는 곡.</p>
+          </div>
+        </div>
+
+        <!-- 음악 3 -->
+        <div class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 cursor-pointer hover:bg-slate-50" data-category="music" onclick="loadSong('粉雪 (코나유키)', 'レミオロメン - J-POP')">
+          <div class="relative rounded-xl overflow-hidden border-2 border-slate-800 aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/1wxTksLZ1Mw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎧 MUSIC</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800">粉雪 (코나유키)</h4>
+            <p class="text-slate-500 text-sm font-semibold">아티스트: 레미오ロメン (J-POP)</p>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">드라마 삽입곡으로 큰 인기를 끌었던 록 발라드. 후렴구의 애절하고 시원하게 뻗어 나가는 고음이 매력적.</p>
+          </div>
+        </div>
+
+        <!-- 음악 4 -->
+        <div class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 cursor-pointer hover:bg-slate-50" data-category="music" onclick="loadSong('Satellite (Update)', 'Darren Styles - UK Hardcore')">
+          <div class="relative rounded-xl overflow-hidden border-2 border-slate-800 aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/ul8VNYm5JJE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎧 MUSIC</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800">Satellite (Update)</h4>
+            <p class="text-slate-500 text-sm font-semibold">아티스트: Darren Styles (UK Hardcore)</p>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">질주감 넘치는 빠른 템포와 긍정적인 에너지를 채워주는 멜로디의 하드코어 레이브 음악으로 작업 집중도를 높여줍니다.</p>
+          </div>
+        </div>
+
+        <!-- 음악 5 -->
+        <div class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 cursor-pointer hover:bg-slate-50" data-category="music" onclick="loadSong('Let You Go', 'DJ Noriken - Hardcore Rave')">
+          <div class="relative rounded-xl overflow-hidden border-2 border-slate-800 aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/37mnapxG30s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎧 MUSIC</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800">Let You Go</h4>
+            <p class="text-slate-500 text-sm font-semibold">아티스트: DJ Noriken (Hardcore Rave)</p>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">세련된 신스 사운드와 단단한 비트 드롭이 조화를 이루는 하드코어 트랙. 귀를 사로잡는 강력한 에너지가 특징.</p>
+          </div>
+        </div>
+
+        <!-- ==================== ANIME SECTION ==================== -->
+        <!-- 애니 1 -->
+        <div class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3" data-category="anime">
+          <div class="relative rounded-xl overflow-hidden border-2 border-slate-800 aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/KYGgyQtSAdI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🏮 ANIME</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800">Chainsmoker Cat (ヤニねこ)</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">독특한 캐릭터성과 예측 불허의 전개로 서브컬처 팬들 사이에서 소소하게 화제를 모으고 있는 병맛 감성의 애니메이션.</p>
+          </div>
+        </div>
+
+        <!-- 애니 2 -->
+        <div class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3" data-category="anime">
+          <div class="relative rounded-xl overflow-hidden border-2 border-slate-800 aspect-video">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/6iseNlvH2_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🏮 ANIME</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800">Lucky Star (らき☆すた)</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">여고생들의 평범한 일상과 서브컬처 공감대를 유쾌하게 풀어내어 일상물 장르에 거대한 한 획을 그은 명작 애니메이션.</p>
+          </div>
+        </div>
+
+        <!-- ==================== TRAVEL SECTION ==================== -->
+        <!-- 여행 1 -->
+        <a href="https://maps.app.goo.gl/zLFZjgpPKVng1z3s6" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="travel">
+          <div class="relative bg-soft-blossom/20 rounded-xl overflow-hidden border-2 border-slate-800 h-44 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/hashidate.jpg?raw=true" alt="아마노하시다테" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">✈️ TRAVEL</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">아마노하시다테, 교토</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">일본 3대 절경 중 하나로 꼽히며, 마치 하늘로 떠오르는 다리처럼 길게 뻗은 신비로운 모래주머니와 푸른 소나무 숲길의 정취.</p>
+          </div>
+        </a>
+
+        <!-- 여행 2 -->
+        <a href="https://maps.app.goo.gl/TzjgnTUghJ7kD6ck9" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="travel">
+          <div class="relative bg-soft-blossom/20 rounded-xl overflow-hidden border-2 border-slate-800 h-44 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/kinosaki.jpg?raw=true" alt="키노사키 온천" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">✈️ TRAVEL</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">키노사키 온천, 효고</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">전통 의상인 유카타를 입고 강변 버드나무 아래를 거닐며 7개의 야외 온천(외탕)을 순례하는 아날로그 감성 힐링 여행지.</p>
+          </div>
+        </a>
+
+        <!-- 여행 3 -->
+        <a href="https://maps.app.goo.gl/fc1wJGJyFLyjDC2w8" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="travel">
+          <div class="relative bg-soft-blossom/20 rounded-xl overflow-hidden border-2 border-slate-800 h-44 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/gosanji.jpg?raw=true" alt="미라이신노오카" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">✈️ TRAVEL</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">미라이신노오카(고산지), 히로시마</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">이탈리아 대리석으로 조성된 거대하고 하얀 조각 공원. 푸른 바다, 사찰의 풍경과 어우러져 마치 그리스에 온 듯한 예술적 공간.</p>
+          </div>
+        </a>
+
+        <!-- 여행 4 -->
+        <a href="https://maps.app.goo.gl/cvJTkZoGb3PoNDMg7" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="travel">
+          <div class="relative bg-soft-blossom/20 rounded-xl overflow-hidden border-2 border-slate-800 h-44 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/expo.jpg?raw=true" alt="만박기념공원" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">✈️ TRAVEL</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">만박기념공원, 오사카</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">1970년 엑스포가 열렸던 상징적인 장소로, 거대한 오카모토 타로의 '태양의 탑'과 드넓은 자연 녹지가 펼쳐진 도심 속 공원.</p>
+          </div>
+        </a>
+  
+        <!-- ==================== GAME SECTION ==================== -->
+        <!-- 게임 1: 오버워치 -->
+        <a href="https://overwatch.blizzard.com/ko-kr/" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="game">
+          <div class="relative bg-lavender-veil rounded-xl overflow-hidden border-2 border-slate-800 h-44 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/ow.jpg?raw=true" alt="오버워치" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎮 GAME</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">오버워치</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">다양한 영웅들의 독창적인 스킬과 팀 에너지가 어우러지는 전장. 유기적인 팀워크 플레이를 통해 협업의 즐거움을 깨닫게 해주는 FPS 게임.</p>
+          </div>
+        </a>
+
+        <!-- 게임 2: 에이펙스 레전드 -->
+        <a href="https://store.steampowered.com/app/1172470/Apex_Legends/?l=english&curator_clanid=36376191&gad_source=1&gad_campaignid=23519587648&gbraid=0AAAAAqD7is1AyMwMxLNSdLey1jw6Lpcqk&gclid=CjwKCAjw9szSBhBNEiwAC57Sq5hWJEx8eLdEtIH1d6K6n-n89ylh2-_gNgrbYY1d7OaDS2dHf4kNfxoC16QQAvD_BwE" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="game">
+          <div class="relative bg-lavender-veil rounded-xl overflow-hidden border-2 border-slate-800 h-44 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/apex.jpg?raw=true" alt="에이펙스 레전드" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎮 GAME</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">에이펙스 레전드</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">스피디한 템포의 슬라이딩과 다채로운 이동기로 전장을 누비는 배틀로얄. 찰나의 순간에 이루어지는 판단력이 짜릿한 도파민을 선사합니다.</p>
+          </div>
+        </a>
+
+        <!-- 게임 3: 엘든링 밤의 통치자 -->
+        <a href="https://store.steampowered.com/app/2622380/ELDEN_RING_NIGHTREIGN/?gad_source=1&gad_campaignid=23519587648&gbraid=0AAAAAqD7is1AyMwMxLNSdLey1jw6Lpcqk&gclid=CjwKCAjw9szSBhBNEiwAC57Sq302gJ52bW4C77JJj-ngB-BgzxYM5S6TBhOzw8fRstatEczP5nClTRoCUjkQAvD_BwE" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="game">
+          <div class="relative bg-lavender-veil rounded-xl overflow-hidden border-2 border-slate-800 h-44 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/nightreign.jpg?raw=true" alt="엘든링 밤의 통치자" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎮 GAME</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">엘든링 밤의 통치자</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">웅장하고 어두운 세계관 속에서 펼쳐지는 새로운 도전. 끝없는 위협을 극복해 나가는 과정이 디버깅의 고난과 성취감을 닮아있습니다.</p>
+          </div>
+        </a>
+
+        <!-- 게임 4: 엘든링 -->
+        <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/?curator_clanid=41002356&gad_source=1&gad_campaignid=23519587648&gbraid=0AAAAAqD7is1AyMwMxLNSdLey1jw6Lpcqk&gclid=CjwKCAjw9szSBhBNEiwAC57Sq3DF8Mu4d6ZW9o2BlYzm2Nvzk3PBgMxFWGiwW45pUJQMyIY5mAXokBoCwMIQAvD_BwE" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="game">
+          <div class="relative bg-lavender-veil rounded-xl overflow-hidden border-2 border-slate-800 h-44 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/er.jpg?raw=true" alt="엘든링" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎮 GAME</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">ELDEN RING</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">방대한 오픈월드와 압도적인 스케일의 다크 판타지. 수많은 실패를 거듭하며 보스의 패턴을 파훼할 때의 희열은 무엇과도 비교할 수 없습니다.</p>
+          </div>
+        </a>
+
+        <!-- 게임 5: 팝픈뮤직 -->
+        <a href="https://p.eagate.573.jp/game/popn/popn29/" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="game">
+          <div class="relative bg-lavender-veil rounded-xl overflow-hidden border-2 border-slate-800 h-44 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/popn.png?raw=true" alt="pop'n music" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎮 GAME</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">pop'n music</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">9개의 알록달록한 대형 버튼을 리드미컬하게 두드리는 팝콘 같은 매력의 음악 게임. 통통 튀는 캐릭터들과 다채로운 장르의 음악이 눈과 귀를 즐겁게 합니다. <s><strong>절대로 귀여운 캐릭터에 속지마세요. 상급자 전용 난이도 게임</strong></s></p>
+          </div>
+        </a>
+
+        <!-- 게임 6: 비트매니아 IIDX -->
+        <a href="https://p.eagate.573.jp/game/2dx/33/" target="_blank" class="curation-card bg-white p-4 rounded-2xl retro-card border-slate-800 flex flex-col space-y-3 group transition-transform" data-category="game">
+          <div class="relative bg-lavender-veil rounded-xl overflow-hidden border-2 border-slate-800 h-44 flex items-center justify-center">
+            <img src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/iidx.jpg?raw=true" alt="beatmania IIDX" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute top-2 left-2 px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded-md z-10">🎮 GAME</div>
+          </div>
+          <div>
+            <h4 class="text-xl font-bold text-slate-800 group-hover:text-baby-pink transition-colors">beatmania IIDX</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mt-1">7개의 건반과 1개의 턴테이블을 조작하는 아케이드 리듬 게임의 정점. 정교한 건반 타건과 스크래치 조작을 통해 방구석 DJ가 된 듯한 완벽한 연주감을 선사합니다.</p>
+          </div>
+        </a>
+
+      </div>
+
+    </section>
+  </main>
+
+  <!-- 푸터 영역 -->
+  <footer class="mt-12 bg-slate-800 text-white py-8 border-t-4 border-slate-900 text-center text-lg space-y-3">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <span class="font-bold tracking-wider text-xl text-soft-blossom">
+        🌸 I AM - 클래스메이트 여러분 환영합니다!
+      </span>
+      <p class="text-xs text-slate-400">
+        © 2026. I AM. All rights reserved. <br class="md:hidden">
+        Powered by TailwindCSS & Noto Sans KR.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // 카테고리 필터링 제어 엔진
+    function filterCuration(category) {
+      const tabs = ['all', 'movie', 'anime', 'music', 'travel', 'game'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('tab-cur-' + t);
+        if (btn) {
+          btn.className = "px-4 py-2 rounded-full border-2 border-slate-800 bg-white text-slate-700 font-bold hover:bg-slate-50 text-md";
+        }
+      });
+      
+      const activeBtn = document.getElementById('tab-cur-' + category);
+      if (activeBtn) {
+        activeBtn.className = "px-4 py-2 rounded-full border-2 border-slate-800 bg-baby-pink text-white font-bold shadow-[2px_2px_0px_0px_rgba(46,37,40,1)] text-md";
+      }
+
+      const cards = document.querySelectorAll('.curation-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const catParam = urlParams.get('category');
+      if (catParam) {
+        filterCuration(catParam);
+      }
+    });
+  </script>
+</body>
+</html>
