@@ -1,0 +1,387 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I AM - About</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Gaegu', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body, button, input, textarea, select {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    :root {
+      --baby-pink: #FF9BC6;
+      --soft-blossom: #FFBCD6;
+      --lavender-veil: #FFE5F9;
+      --periwinkle: #B7B6FF;
+      --icy-blue: #AFDEFF;
+      --dark-slate: #2E2528;
+    }
+
+    .bg-baby-pink { background-color: var(--baby-pink); }
+    .bg-soft-blossom { background-color: var(--soft-blossom); }
+    .bg-lavender-veil { background-color: var(--lavender-veil); }
+    .bg-periwinkle { background-color: var(--periwinkle); }
+    .bg-icy-blue { background-color: var(--icy-blue); }
+    .text-dark-slate { color: var(--dark-slate); }
+    .border-dark-slate { border-color: var(--dark-slate); }
+
+    .retro-border {
+      border: 4px solid var(--dark-slate);
+      box-shadow: 4px 4px 0px 0px var(--dark-slate);
+      transition: all 0.2s ease-in-out;
+    }
+    .retro-border:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px 0px var(--dark-slate);
+    }
+    .retro-border:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px 0px var(--dark-slate);
+    }
+
+    .retro-card {
+      border: 4px solid var(--dark-slate);
+      box-shadow: 5px 5px 0px 0px var(--dark-slate);
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--lavender-veil);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--periwinkle);
+      border-radius: 9999px;
+      border: 2px solid var(--dark-slate);
+    }
+  </style>
+</head>
+<body class="bg-[#FFFDFE] font-sans text-slate-800 min-h-screen flex flex-col selection:bg-[#FF9BC6] selection:text-white">
+
+
+  <!-- 헤더 & 네비게이션 바 -->
+  <header class="sticky top-0 z-50 px-4 py-3 bg-[#FFFDFE]/90 backdrop-blur-md border-b-4 border-slate-800">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+      <!-- 로고 영역 -->
+      <a href="/index.html" class="flex items-center gap-2 group">
+        <span class="text-2xl font-bold tracking-wider text-dark-slate group-hover:text-[#FF9BC6] transition-colors">
+          I AM
+        </span>
+      </a>
+
+      <!-- 둥근 형태의 귀여운 탭 메뉴 -->
+      <nav class="flex items-center gap-2 bg-lavender-veil p-1.5 rounded-full border-2 border-slate-800">
+        <a href="/index.html" id="nav-home" 
+          class="px-4 py-1.5 rounded-full text-lg font-bold transition-all duration-300 text-slate-700 hover:bg-white">
+          🏠 홈
+        </a>
+        <a href="/about.html" id="nav-about" 
+          class="px-4 py-1.5 rounded-full text-lg font-bold transition-all duration-300 bg-baby-pink text-white border-2 border-slate-800 shadow-[2px_2px_0px_0px_rgba(46,37,40,1)]">
+          ✨ 나에 대해
+        </a>
+        <a href="/curation.html" id="nav-curation" 
+          class="px-4 py-1.5 rounded-full text-lg font-bold transition-all duration-300">
+          🎨 취향 큐레이션
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 메인 콘텐트 콘테이너 -->
+  <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8">
+    
+    <!-- ABOUT ME SECTION -->
+    <section id="section-about" class="space-y-10 block">
+      
+      <!-- 1 & 2. 프로필 사진 & 인적사항 (상단 수직/수평 하이브리드 레이아웃) -->
+      <div class="bg-white p-6 rounded-3xl retro-card border-slate-800 flex flex-col md:flex-row items-center gap-6">
+        <!-- 프로필 이미지 -->
+        <div class="w-32 h-32 rounded-full border-4 border-slate-800 overflow-hidden bg-baby-pink relative group flex-shrink-0">
+          <img id="profile-avatar" src="https://github.com/nyhryan/ssafy-vibe-site/blob/master/assets/doro.png?raw=true" alt="Profile" class="w-full h-full object-cover">
+          <button onclick="changeAvatar()" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">
+            아바타 변경 💫
+          </button>
+        </div>
+        
+        <!-- 이름 및 인적사항 정보 -->
+        <div class="flex-1 w-full space-y-4">
+          <div class="text-center md:text-left">
+            <h2 class="text-3xl font-bold text-slate-800 inline-block md:block">남윤혁</h2>
+            <p class="text-lg text-slate-500 md:inline-block">도전하고 개척하는 올라운더</p>
+            <p>
+              <a href="https://blog.ataidev.cc/" target="_blank" rel="noopener noreferrer" class="hover:underline">➡️ 개인 GitHub Pages 블로그 바로가기</a>
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left bg-lavender-veil/50 p-4 rounded-2xl border-2 border-slate-800 text-md">
+            <div>🏫 <span class="font-bold">소속:</span> SSAFY 16기 Java 트랙</div>
+            <div>💌 <span class="font-bold">한마디:</span> 어떤 시련도 잘 버텨내는 싸나이</div>
+            <div>💻 <span class="font-bold">기술스택:</span> C/C++, Java, C#, JS, TS</div>
+            <div>👾 <span class="font-bold">게임:</span> 오버워치 힐러 다5, 소울즈 시리즈</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 스탯 보드 (가로 너비를 넓게 활용하도록 단독 카드화) -->
+      <div class="bg-white p-6 rounded-3xl retro-card border-slate-800 space-y-6">
+        <h3 class="text-2xl font-bold text-dark-slate flex items-center gap-2">
+          📈 나의 개발자 능력치 (My Developer Stats)
+        </h3>
+        
+        <div class="space-y-4">
+          <!-- Stat 1 -->
+          <div>
+            <div class="flex justify-between font-bold mb-1">
+              <span>🛠️ 코딩 & 디버깅력 (Error Smash)</span>
+              <span class="text-baby-pink">99%</span>
+            </div>
+            <div class="w-full h-6 bg-slate-100 rounded-full border-2 border-slate-800 overflow-hidden">
+              <!-- Added transition utilities, data-target, and set initial width to 0% -->
+              <div class="stat-bar h-full bg-baby-pink border-r-2 border-slate-800 transition-all duration-500 ease-out" data-target="99%" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <!-- Stat 2 -->
+          <div>
+            <div class="flex justify-between font-bold mb-1">
+              <span>☕ 꺾이지 않는 마음 (Tenacity)</span>
+              <span class="text-periwinkle">100%</span>
+            </div>
+            <div class="w-full h-6 bg-slate-100 rounded-full border-2 border-slate-800 overflow-hidden">
+              <div class="stat-bar h-full bg-periwinkle border-r-2 border-slate-800 transition-all duration-500 ease-out" data-target="100%" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <!-- Stat 3 -->
+          <div>
+            <div class="flex justify-between font-bold mb-1">
+              <span>🎧 세련된 취향 지수 (Good Taste)</span>
+              <span class="text-soft-blossom">90%</span>
+            </div>
+            <div class="w-full h-6 bg-slate-100 rounded-full border-2 border-slate-800 overflow-hidden">
+              <div class="stat-bar h-full bg-soft-blossom border-r-2 border-slate-800 transition-all duration-500 ease-out" data-target="90%" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <!-- Stat 4 -->
+          <div>
+            <div class="flex justify-between font-bold mb-1">
+              <span>🚗 미지의 영역 탐험력 (Adventure)</span>
+              <span class="text-icy-blue">95%</span>
+            </div>
+            <div class="w-full h-6 bg-slate-100 rounded-full border-2 border-slate-800 overflow-hidden">
+              <div class="stat-bar h-full bg-icy-blue border-r-2 border-slate-800 transition-all duration-500 ease-out" data-target="95%" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          // Select all progress bars using the common class we added
+          const progressBars = document.querySelectorAll('.stat-bar');
+          
+          // A tiny timeout gives the DOM an absolute microsecond to render 0% width first, 
+          // ensuring the CSS transition triggers beautifully.
+          setTimeout(() => {
+            progressBars.forEach(bar => {
+              const targetWidth = bar.getAttribute('data-target');
+              bar.style.width = targetWidth;
+            });
+          }, 100);
+        });
+      </script>
+
+      <!-- 4. 핵심 역량 (카드를 격자 레이아웃으로 보기 좋게 정리) -->
+      <div class="space-y-4">
+        <h3 class="text-2xl font-bold text-dark-slate px-2">✨ 핵심 역량 및 매력 포인트</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-icy-blue/30 p-4 rounded-2xl border-2 border-slate-800">
+            <h4 class="font-bold text-lg text-slate-800">💡 어떤 환경에서도 빠르게 퍼포먼스를 냅니다!</h4>
+            <p class="text-slate-600 text-sm mt-1">
+              처음 접하는 오픈소스나 모호한 명세서를 마주하더라도 회피하지 않아요. 원리를 명확하게 탐색하여, 결국 동작하는 완벽한 결과물을 만들어 냅니다.
+            </p>
+          </div>
+
+          <div class="bg-icy-blue/30 p-4 rounded-2xl border-2 border-slate-800">
+            <h4 class="font-bold text-lg text-slate-800">🛠️ 어떤 언어라도 금방 제 것으로 만듭니다</h4>
+            <p class="text-slate-600 text-sm mt-1">
+              C/C++, Java, C#, Go, TypeScript 등 다양한 스택을 다룹니다. 특정 언어에 갇히지 않고, 필요한 기술이라면 무엇이든 빠르게 습득하여 프로젝트에 즉시 적용할 수 있습니다.
+            </p>
+          </div>
+
+          <div class="bg-icy-blue/30 p-4 rounded-2xl border-2 border-slate-800">
+            <h4 class="font-bold text-lg text-slate-800">💻 언제 어디서든 준비된 멀티 플랫폼 개발자</h4>
+            <p class="text-slate-600 text-sm mt-1">
+              집에서는 Windows, 밖에서는 macOS, 서버 인프라가 필요할 때는 Linux 환경까지 자유자재로 넘나듭니다. 환경에 구애받지 않고 언제 어디서나 유연하게 작업할 수 있습니다.
+            </p>
+          </div>
+
+          <div class="bg-icy-blue/30 p-4 rounded-2xl border-2 border-slate-800">
+            <h4 class="font-bold text-lg text-slate-800">🎯 복잡한 디버깅도, 험난한 보스전도 두렵지 않습니다</h4>
+            <p class="text-slate-600 text-sm mt-1">
+              C++의 깊은 디버깅부터 오버워치 경쟁전 솔큐, 엘든링의 말레니아 보스전까지 끈기 있게 파고들었습니다. 실패에 좌절하지 않고 원인을 찾아내며 단단한 인내심과 문제 해결력을 길렀습니다.
+            </p>
+          </div>
+
+          <div class="bg-icy-blue/30 p-4 rounded-2xl border-2 border-slate-800">
+            <h4 class="font-bold text-lg text-slate-800">⚡ 쉬는 시간에도 멈추지 않는 에너지와 몰입</h4>
+            <p class="text-slate-600 text-sm mt-1">
+              리듬 게임은 쉬는 시간에도 제 손을 바쁘게 움직이게 하는 활력소이자, 스트레스를 창의적으로 해소하는 촉진제입니다. 빠른 템포 속에서도 집중력을 잃지 않는 태도가 개발에도 고스란히 이어집니다.
+            </p>
+          </div>
+
+          <div class="bg-icy-blue/30 p-4 rounded-2xl border-2 border-slate-800">
+            <h4 class="font-bold text-lg text-slate-800">🧭 지치지 않는 모험심으로 더 많은 것을 경험합니다</h4>
+            <p class="text-slate-600 text-sm mt-1">
+              저와 함께 일본 여행을 가신다면 하루 3만 보의 강행군이 될지도 모릅니다. 하지만 발로 뛰는 만큼 남들보다 더 깊고 풍부한 경험과 인사이트를 가득 채워올 것을 보장합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. 가상 방명록 기능 -->
+      <div class="bg-lavender-veil rounded-3xl p-6 md:p-8 retro-card border-slate-800 space-y-6">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-2xl font-bold text-dark-slate flex items-center gap-2">
+              📝 클래스 멤버들을 위한 파스텔 방명록
+            </h3>
+            <p class="text-slate-500 text-md">저를 향한 아낌없는 칭찬이나 한줄 인사글을 포스트잇으로 남겨주세요!</p>
+          </div>
+          <span class="px-3 py-1 bg-white border-2 border-slate-800 rounded-full text-sm font-bold shadow-[2px_2px_0px_0px_rgba(46,37,40,1)]">
+            실시간 로컬 저장 중 💾
+          </span>
+        </div>
+
+        <form id="guestbook-form" onsubmit="addStickyNote(event)" class="bg-white p-4 rounded-2xl border-2 border-slate-800 flex flex-col md:flex-row gap-3">
+          <input id="guestbook-name" type="text" placeholder="작성자 이름" required 
+            class="px-4 py-2 bg-slate-50 border-2 border-slate-800 rounded-xl outline-none focus:bg-white text-base md:w-48">
+          
+          <input id="guestbook-text" type="text" placeholder="방명록 한마디를 입력하세요!" required 
+            class="flex-1 px-4 py-2 bg-slate-50 border-2 border-slate-800 rounded-xl outline-none focus:bg-white text-base">
+          
+          <div class="flex items-center gap-2 px-2">
+            <label class="text-xs font-bold text-slate-500">배경 선택:</label>
+            <div class="flex gap-1.5">
+              <button type="button" onclick="setStickyColor('bg-baby-pink')" class="w-6 h-6 rounded-full bg-baby-pink border-2 border-slate-800" id="btn-col-pink"></button>
+              <button type="button" onclick="setStickyColor('bg-periwinkle')" class="w-6 h-6 rounded-full bg-periwinkle border-2 border-slate-800" id="btn-col-periwinkle"></button>
+              <button type="button" onclick="setStickyColor('bg-icy-blue')" class="w-6 h-6 rounded-full bg-icy-blue border-2 border-slate-800" id="btn-col-blue"></button>
+              <button type="button" onclick="setStickyColor('bg-soft-blossom')" class="w-6 h-6 rounded-full bg-soft-blossom border-2 border-slate-800" id="btn-col-blossom"></button>
+            </div>
+          </div>
+
+          <button type="submit" class="px-5 py-2 bg-baby-pink text-white font-bold rounded-xl retro-border">
+            작성 완료 🌸
+          </button>
+        </form>
+
+        <div id="guestbook-board" class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 min-h-[160px]">
+          <!-- 동적 바인딩 노드 영역 -->
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <div id="custom-toast" class="fixed bottom-6 right-6 z-50 bg-slate-800 text-white text-lg font-bold px-5 py-3 rounded-2xl shadow-lg border-2 border-slate-600 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+    <span id="toast-icon">🌸</span>
+    <span id="toast-message">환영합니다!</span>
+  </div>
+
+  <!-- 푸터 영역 -->
+  <footer class="mt-12 bg-slate-800 text-white py-8 border-t-4 border-slate-900 text-center text-lg space-y-3">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <span class="font-bold tracking-wider text-xl text-soft-blossom">
+        🌸 I AM - 클래스메이트 여러분 환영합니다!
+      </span>
+      <p class="text-xs text-slate-400">
+        © 2026. I AM. All rights reserved. <br class="md:hidden">
+        Powered by TailwindCSS & Noto Sans KR.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    let currentStickyColor = 'bg-baby-pink';
+
+    function setStickyColor(colorClass) {
+      currentStickyColor = colorClass;
+      showToast('🎨', '스티커 색상이 변경되었습니다!');
+    }
+
+    function changeAvatar() {
+      const avatars = ['👨‍💻', '🚀', '🧙‍♂️', '🐱', '🦊', '⭐'];
+      const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
+      document.getElementById('profile-avatar').src = `https://placehold.co/150x150/FFBCD6/2E2528?text=${randomAvatar}`;
+      showToast('💫', '새 아바타 로드 완료!');
+    }
+
+    function showToast(icon, msg) {
+      const toast = document.getElementById('custom-toast');
+      document.getElementById('toast-icon').innerText = icon;
+      document.getElementById('toast-message').innerText = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 2000);
+    }
+
+    function loadNotes() {
+      const board = document.getElementById('guestbook-board');
+      board.innerHTML = '';
+      const notes = JSON.parse(localStorage.getItem('guestbook_notes') || '[]');
+      notes.forEach(note => {
+        const el = document.createElement('div');
+        el.className = `${note.color} p-4 rounded-xl border-2 border-slate-800 shadow-[2px_2px_0px_0px_rgba(46,37,40,1)] relative space-y-2`;
+        el.innerHTML = `
+          <div class="text-sm font-bold border-b border-slate-800 pb-1">From: ${note.name}</div>
+          <div class="text-base text-slate-800 leading-tight">${note.text}</div>
+        `;
+        board.appendChild(el);
+      });
+    }
+
+    function addStickyNote(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('guestbook-name');
+      const textInput = document.getElementById('guestbook-text');
+      
+      const notes = JSON.parse(localStorage.getItem('guestbook_notes') || '[]');
+      notes.push({
+        name: nameInput.value,
+        text: textInput.value,
+        color: currentStickyColor
+      });
+      
+      localStorage.setItem('guestbook_notes', JSON.stringify(notes));
+      nameInput.value = '';
+      textInput.value = '';
+      loadNotes();
+      showToast('🌸', '방명록이 등록되었습니다!');
+    }
+
+    window.onload = loadNotes;
+  </script>
+</body>
