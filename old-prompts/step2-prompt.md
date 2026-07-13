@@ -26,13 +26,12 @@ The website’s brand is built around a clear duality: the disciplined, curious 
 
 ## About owner
 
-Here is a list of stuff about the website's owner.
+Here is a list of stuff about the website's owner. The owner wants to introduce himself to the friends and teacher of his class. The owner wants to share experiences related to information below.
 
 - My freetime activity: 
     - Video games: 
         - Hyper FPS: Overwatch, Apex Legends
         - Souls game: Elden ring, Elden ring Nightreign
-        - Racing game: Forza Horizon 6
     - Listening to music:
         - I love J-POP. `aiko` is my favorite artist.
         - I love electronic music. UK Hardcore is my favorite genre.
@@ -64,6 +63,8 @@ The messaging across the website will highlight three primary competitive advant
 
 ## 3. Website flow
 
+Generate plausible descriptions for each section by yourself if not provided from the context.
+
 1. Hero section
     - Catchphrase and description.
 2. Technical section
@@ -84,30 +85,43 @@ The messaging across the website will highlight three primary competitive advant
         - chainsmoker cat: https://www.youtube.com/watch?v=mrZ8fd4hGoY
         - lucky star: https://youtu.be/6iseNlvH2_s?si=ttmASCD4hm-jcGZX
 5. Footer
+    - Email: mock email address
+    - GitHub: https://github.com/nyhryan
 
-## 4. Brand palette
+## 4. Design and theme
 
-- Text: #eff2f3
-- Background: #060a0b
-- Primary: #9ccdde
-- Secondary: #1b6984
-- Accent: #1eb5ea
+Use light background color and dark text color.
 
-## 5. Theme
+Apply the brand palette above for the accent colors.
 
-Apply the brand palette above for the colors.
+- Baby pink: FF9BC6
+- Soft blossom: FFBCD6
+- lavender veli: FFE5F9
+- perwinkle: B7B6FF
+- icy blue: AFDEFF
 
-The keywords for the theme of the webpage are: Otaku, Subculture, Nerdy, Video games. Consider these keywords while designing.
+The design principles of this website are:
+- Cute and rounded design
+- Use the following font from google font:
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap" rel="stylesheet">
+```
+This font supports Latin and Korean glyphs. It supports weight of 300(light), 400(regular), and 700(bold)
 
 </proposal>
 
 <requirements>
+- Use only Korean language for site's contents. 
 - Single HTML page. HTML, CSS, JavaScript in a single file
 - Plain, Vanila JavaScript. No framework, library is allowed.
 - Apply modern CSS convention including:
     - BEM naming
     - Readable line length: 80 characters
-    - Watch out for word wrap, line breaks. I mean to use Korean in this website later. Apply appropriate settings for Korean and then English.
+    - Watch out for word wrap, line breaks that applies to Korean language.
+    - Mobile responsive layout. Do not go overkill. Just need to be readable in mobile layout.
+- Consider future expandability: Single page for now, multiple HTML pages will added later. Consider this when designing the navbar.
 </requirements>
 
 
